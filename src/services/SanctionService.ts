@@ -17,10 +17,9 @@ class SanctionService implements CRUD {
         return SanctionModel.find({_id: id}).exec();
     }
 
-    async create(newSanction: any) {
-        const userId = newSanction.userId
-        const id = mongoose.Types.ObjectId();
-        const sanction = new SanctionModel(newSanction);
+    async create(req: any) {
+        const userId = req.params.studentId
+        const sanction = new SanctionModel(req.body);
 
         sanction.owner = mongoose.Types.ObjectId(userId);
         sanction.save();
@@ -30,6 +29,10 @@ class SanctionService implements CRUD {
 
     async deleteById(id: string) {
         return SanctionModel.deleteOne({_id: id}).exec();
+    }
+
+    async updateById(req: any) {
+        return await SanctionModel.findOneAndUpdate({_id: req.params.sanctionId}, req.body).exec();
     }
 }
 
