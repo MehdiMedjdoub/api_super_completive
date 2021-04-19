@@ -10,6 +10,21 @@ import { SpeakerModel } from '../models/SpeakerModel'
 
 class AuthService {
     singIn = async (req: express.Request, res: express.Response) => {
+
+        if(!req.body.userType) {
+            res.status(400).send({
+                success: false,
+                message: "Missing userType. available values: 'student', 'speaker', 'employee'",
+            });
+        }
+
+        if(!req.body.userName) {
+            res.status(400).send({
+                success: false,
+                message: "Missing userName",
+            });
+        }
+
         const userModel = this.getModelByUserType(req.body.userType)
         const user = await userModel.findOne({userName: req.body.userName}).exec((err, user) => {
             
@@ -18,7 +33,18 @@ class AuthService {
             }
       
             if (!user) {
-                console.log('user not found')
+                res.status(404).send({
+                    success: false,
+                    message: "User not found !",
+                });
+                return;
+            }
+
+            if(!req.body.password) {
+                res.status(400).send({
+                    success: false,
+                    message: "Missing password",
+                });
             }
 
             let passwordIsValid = bcrypt.compareSync(
@@ -27,10 +53,11 @@ class AuthService {
             );
         
             if (!passwordIsValid) {
-                return res.status(401).send({
+                res.status(401).send({
                     accessToken: null,
                     message: "Invalid Password!"
                 });
+                return;
             }
             
             const token = jwt.sign({ id: user.id }, `${process.env.ACCESS_TOKEN_SECRET}`, {
