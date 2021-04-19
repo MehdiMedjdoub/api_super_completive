@@ -5,7 +5,7 @@ class ResultController {
     async createResult(req: express.Request, res: express.Response) {
         const result = await ResultService.create(req.body);
         res.status(201).json({
-            error: false,
+            success: true,
             message: "Nouvelle note ajoutée",
             data: result
         });
@@ -14,7 +14,7 @@ class ResultController {
     async getAllResults(req: express.Request, res: express.Response) {
         const results = await ResultService.getAllByStudent(req.params.studentId);
         res.status(200).json({
-            error: false, 
+            success: true, 
             message: "Liste des notes", 
             data: results
         });
@@ -23,7 +23,7 @@ class ResultController {
     async getResultById(req: express.Request, res: express.Response) {
         const result = await ResultService.getOneById(req.params.id);
         res.status(200).json({
-            error: false, 
+            success: true, 
             message: "note", 
             data: result
         });
@@ -32,9 +32,18 @@ class ResultController {
     async deleteResultById(req: express.Request, res: express.Response) {
         const result = await ResultService.deleteById(req.params.id);
         res.status(200).json({
-            error: false, 
+            success: true, 
             message: "la note a été supprimée", 
             data: result
+        });
+    }
+
+    async updateResultById(req: express.Request, res: express.Response) {
+        const delay = await ResultService.updateById(req);
+        res.status(200).json({
+            success: true, 
+            message: "retard mis à jour", 
+            data: delay
         });
     }
 }

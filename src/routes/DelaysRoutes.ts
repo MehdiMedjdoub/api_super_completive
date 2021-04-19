@@ -1,7 +1,6 @@
 import { CommonRoutesConfig } from './CommonRoutes';
 import DelayController from '../controllers/DelayController';
 import express from 'express';
-import AuthJwt from '../middlewares/authJwt'
 
 export class DelaysRoutes extends CommonRoutesConfig {
     constructor(app: express.Application) {

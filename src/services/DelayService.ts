@@ -1,10 +1,9 @@
 import { StudentModel } from '../models/StudentModel'
 import { DelayModel } from '../models/DelayModel'
-// import { CRUD } from '../interfaces/CrudInterface';
+import { CRUD } from '../interfaces/CrudInterface';
 import mongoose from "mongoose";
 
-// class DelayService implements CRUD {
-class DelayService {
+class DelayService implements CRUD {
 
     async getAll() {
         return DelayModel.find();
@@ -19,9 +18,9 @@ class DelayService {
     }
 
     async create(req: any) {
-
         const userId = req.params.studentId
         const delay = new DelayModel(req.body);
+        
         delay.owner = mongoose.Types.ObjectId(userId);
         if(!req.body.isJustified) {
             delay.isJustified = false
@@ -35,14 +34,8 @@ class DelayService {
         return DelayModel.deleteOne({_id: id}).exec();
     }
 
-    async updateById(req: any, res:any) {
-        return await DelayModel.findOneAndUpdate({_id: req.params.delayId}, req.body).exec().then(delay => {
-            res.status(200).json({
-                error: false, 
-                message: "retard mis à jour", 
-                data: delay
-            });
-        });
+    async updateById(req: any) {
+        return await DelayModel.findOneAndUpdate({_id: req.params.delayId}, req.body).exec();
     }
 }
 

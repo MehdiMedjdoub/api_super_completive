@@ -10,7 +10,6 @@ class ResultService implements CRUD {
     }
 
     async getAllByStudent(studentId: any) {
-        // return StudentModel.find({_id: studentId}).populate('absence').exec();
         return ResultModel.find({owner: studentId}).populate('student').exec(); 
     }
 
@@ -18,12 +17,10 @@ class ResultService implements CRUD {
         return ResultModel.find({_id: id}).exec();
     }
 
-    async create(newResult: any) {
+    async create(req: any) {
+        const userId = req.params.studentId
+        const result = new ResultModel(req.body);
 
-        const userId = newResult.userId
-        const id = mongoose.Types.ObjectId();
-
-        const result = new ResultModel(newResult);
         result.owner = mongoose.Types.ObjectId(userId);
         result.save();
 
@@ -32,6 +29,10 @@ class ResultService implements CRUD {
 
     async deleteById(id: string) {
         return ResultModel.deleteOne({_id: id}).exec();
+    }
+
+    async updateById(req: any) {
+        return await ResultModel.findOneAndUpdate({_id: req.params.resultId}, req.body).exec();
     }
 }
 

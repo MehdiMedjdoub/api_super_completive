@@ -1,7 +1,6 @@
 import { CommonRoutesConfig } from './CommonRoutes';
 import ResultController from '../controllers/ResultController';
 import express from 'express';
-import AuthJwt from '../middlewares/authJwt'
 
 export class ResultsRoutes extends CommonRoutesConfig {
     constructor(app: express.Application) {
@@ -16,7 +15,9 @@ export class ResultsRoutes extends CommonRoutesConfig {
         
         this.app
             .route(`/students/:studentId/results/:resultId`)
-            .delete(ResultController.deleteResultById);
+            .delete(ResultController.deleteResultById)
+            .get(ResultController.getResultById)
+            .put(ResultController.updateResultById);;
 
         return this.app;
     }

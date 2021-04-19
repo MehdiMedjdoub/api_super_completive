@@ -17,12 +17,14 @@ class AbsenceService implements CRUD {
         return AbsenceModel.find({_id: id}).exec();
     }
 
-    async create(newAbsence: any) {
-        const userId = newAbsence.userId
-        const id = mongoose.Types.ObjectId();
-        const absence = new AbsenceModel(newAbsence);
+    async create(req: any) {
+        const userId = req.params.studentId
+        const absence = new AbsenceModel(req.body);
 
         absence.owner = mongoose.Types.ObjectId(userId);
+        if(!req.body.isJustified) {
+            absence.isJustified = false
+        }
         absence.save();
 
         StudentModel.findOneAndUpdate({_id: userId}, {$push: {absences: absence._id}}).exec()
@@ -30,6 +32,10 @@ class AbsenceService implements CRUD {
 
     async deleteById(id: string) {
         return AbsenceModel.deleteOne({_id: id}).exec();
+    }
+
+    async updateById(req: any) {
+        return await AbsenceModel.findOneAndUpdate({_id: req.params.delayId}, req.body).exec();
     }
 }
 
