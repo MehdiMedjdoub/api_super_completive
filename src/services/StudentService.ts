@@ -19,16 +19,12 @@ class StudentService implements CRUD {
     }
 
     async deleteById(id: string) {
-        //return AbsenceModel.deleteOne({_id: id}).exec();
+        return StudentModel.deleteOne({_id: id}).exec();
     }
 
-    // async patchById(id: string, resource: PatchUserDto) {
-    //     return UserModel.patchUserById(id, resource);
-    // }
-
-    // async putById(id: string, resource: PutUserDto) {
-    //     return UserModel.putUserById(id, resource);
-    // }
+    async updateById(req: any) {
+        return await StudentModel.findOneAndUpdate({_id: req.params.id}, req.body).exec();
+    }
 }
 
 export default new StudentService();

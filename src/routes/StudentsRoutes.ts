@@ -19,7 +19,8 @@ export class StudentsRoutes extends CommonRoutesConfig {
         this.app
             .route(`/students/:id`)
             .get(StudentController.getStudentById)
-            .delete(StudentController.deleteStudentById);
+            .delete(StudentController.deleteStudentById)
+            .put(StudentController.updateStudentById);
                 
         return this.app;
     }

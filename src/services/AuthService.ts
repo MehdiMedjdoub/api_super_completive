@@ -98,8 +98,8 @@ class AuthService {
 
         const userModel = this.getModelByUserType(newUser.userType)
         const user = new userModel(newUser);
-
-        if(this.isMissingFields(newUser)) {
+        console.log(user)
+        if(this.isMissingFields(user)) {
             res.status(400).send({
                 success: false,
                 message: "Une ou plusieurs données obligatoires sont manquantes",
