@@ -21,7 +21,7 @@ class ResultController {
     }
 
     async getResultById(req: express.Request, res: express.Response) {
-        const result = await ResultService.getOneById(req.params.studentId);
+        const result = await ResultService.getOneById(req.params.resultId);
         res.status(200).json({
             success: true, 
             message: "note", 
@@ -30,7 +30,7 @@ class ResultController {
     }
 
     async deleteResultById(req: express.Request, res: express.Response) {
-        const result = await ResultService.deleteById(req.params.studentId);
+        const result = await ResultService.deleteById(req.params.resultId);
         res.status(200).json({
             success: true, 
             message: "la note a été supprimée", 
