@@ -9,7 +9,7 @@
     "start": "node dist/main.js",
     "debug": "export DEBUG=* && npm run start",
     "tstest": "echo \"Error: no test specified\" && exit 1",
-    "tsc": "tsc"
+    "build": "tsc -p ."
   },
   "repository": "git@github.com:MehdiMedjdoub/api_super_completive.git",
   "license": "MIT",
