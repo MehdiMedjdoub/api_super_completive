@@ -13,6 +13,7 @@ export default () => {
         })
         .catch(error => {
             console.log("Error connecting to database: ", error);
+            console.log(dbUrl)
             return process.exit(1);
         });
     };
