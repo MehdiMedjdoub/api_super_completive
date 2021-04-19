@@ -1,9 +1,10 @@
 import express from 'express';
 import StudentService from '../services/StudentService';
-
+import AuthService from '../services/AuthService';
 class StudentController {
     async createStudent(req: express.Request, res: express.Response) {
-        const student = await StudentService.create(req.body);
+        const student = await AuthService.singUp(req, res);
+        //const student = await StudentService.create(req.body);
         res.status(201).json({
             error: false,
             message: "Utilisateur crée avec succès",

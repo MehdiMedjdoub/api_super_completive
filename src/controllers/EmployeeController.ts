@@ -5,7 +5,7 @@ import AuthService from '../services/AuthService';
 
 class EmployeeController {
     async createEmployee(req: express.Request, res: express.Response) {
-        const employee = await AuthService.singUp(req.body);
+        const employee = await AuthService.singUp(req, res);
         res.status(201).json({
             success: true,
             message: "Utilisateur crée avec succès",
@@ -23,11 +23,19 @@ class EmployeeController {
     }
 
     async getEmployeeById(req: express.Request, res: express.Response) {
-        const employe = await EmployeeService.getOneById(req.params.id);
+        const employee = await EmployeeService.getOneById(req.params.id);
+        console.log(employee)
+        if (employee.length < 1) {
+            res.status(404).json({
+                success: false, 
+                message: "utilisateur non trouvé", 
+            });
+        }
+
         res.status(200).json({
             success: true, 
             message: "profile de l'employé ", 
-            data: employe
+            data: employee
         });
     }
 
@@ -41,8 +49,7 @@ class EmployeeController {
     }
 
     async updateEmployeeById(req: express.Request, res: express.Response) {
-        console.log(req)
-        const employe = await EmployeeService.updateById(req.body);
+        const employe = await EmployeeService.updateById(req);
         res.status(200).json({
             success: true, 
             message: "l'employé a été modifié ", 

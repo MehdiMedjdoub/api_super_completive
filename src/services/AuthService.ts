@@ -85,9 +85,36 @@ class AuthService {
         });
     }
 
-    singUp = async (newUser: any) => {
+    singUp = async (req: express.Request, res: express.Response) => {
+        const newUser = req.body
+
+        if (!newUser.userType) {
+            res.status(400).send({
+                success: false,
+                message: "Missing userType",
+            });
+            return;
+        }
+
         const userModel = this.getModelByUserType(newUser.userType)
         const user = new userModel(newUser);
+
+        if(this.isMissingFields(newUser)) {
+            res.status(400).send({
+                success: false,
+                message: "Une ou plusieurs données obligatoires sont manquantes",
+            });
+            return;
+        }
+
+        const emailAlReadyExist = await userModel.findOne({email: newUser.email}).exec();
+        if(emailAlReadyExist) {
+            res.status(409).send({
+                success: false,
+                message: `Un compte ${newUser.userType} utilisant cette adresse email existe déjà`,
+            });
+            return;
+        }
 
         const randomPassword = Math.random().toString(36).slice(-10);
 
@@ -143,6 +170,34 @@ class AuthService {
                 return SpeakerModel;
             case 'employee':
                 return EmployeeModel;
+            default:
+                return;
+        }
+    }
+
+    isMissingFields = (user: any) => {
+        switch(user.userType) {
+            case 'student':
+                if(
+                    !user.email || !user.firstName || !user.lastName || !user.phone || !user.adress ||
+                    !user.cp || !user.city || !user.faculty || !user.class || !user.promo 
+                    ) {
+                    return true;
+                }
+            case 'speaker':
+                if(
+                    !user.email || !user.firstName || !user.lastName || !user.phone ||
+                    !user.adress || !user.cp || !user.city || !user.siretNumber 
+                    ){
+                    return true;
+                }
+            case 'employee':
+                if(
+                    !user.email || !user.firstName || !user.lastName || !user.phone ||
+                    !user.adress || !user.cp || !user.city || !user.function 
+                    ){
+                    return true;
+                }
             default:
                 return;
         }

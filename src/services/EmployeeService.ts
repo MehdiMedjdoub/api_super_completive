@@ -10,7 +10,7 @@ class EmployeeService implements CRUD {
     }
 
     async getOneById(id: string) {
-        return EmployeeModel.find({_id: id}).exec();
+        return await EmployeeModel.find({_id: id}).exec();
     }
 
     async create(newEmployee: any) {
@@ -22,8 +22,8 @@ class EmployeeService implements CRUD {
         return EmployeeModel.deleteOne({_id: id}).exec();
     }
 
-    async updateById(employee: any) {
-        return EmployeeModel.findOneAndUpdate({_id: employee._id}, employee).exec();
+    async updateById(req: any) {
+        return await EmployeeModel.findOneAndUpdate({_id: req.params.id}, req.body).exec();
     }
 }
 

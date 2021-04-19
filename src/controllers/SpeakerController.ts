@@ -1,9 +1,11 @@
 import express from 'express';
 import SpeakerService from '../services/SpeakerService';
+import AuthService from '../services/AuthService';
 
 class SpeakerController {
     async createSpeaker(req: express.Request, res: express.Response) {
-        const speaker = await SpeakerService.create(req.body);
+        const speaker = await AuthService.singUp(req, res);
+        // const speaker = await SpeakerService.create(req.body);
         res.status(201).json({
             error: false,
             message: "Intervenant crée avec succès",
