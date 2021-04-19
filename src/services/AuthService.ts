@@ -16,6 +16,7 @@ class AuthService {
                 success: false,
                 message: "Missing userType. available values: 'student', 'speaker', 'employee'",
             });
+            return;
         }
 
         if(!req.body.userName) {
@@ -23,6 +24,7 @@ class AuthService {
                 success: false,
                 message: "Missing userName",
             });
+            return;
         }
 
         const userModel = this.getModelByUserType(req.body.userType)
@@ -45,6 +47,7 @@ class AuthService {
                     success: false,
                     message: "Missing password",
                 });
+                return;
             }
 
             let passwordIsValid = bcrypt.compareSync(
