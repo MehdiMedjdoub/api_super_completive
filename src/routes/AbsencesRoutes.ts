@@ -16,7 +16,8 @@ export class AbsencesRoutes extends CommonRoutesConfig {
         
         this.app
             .route(`/students/:studentId/absences/:absenceId`)
-            .delete(AbsenceController.deleteAbsenceById);
+            .delete(AbsenceController.deleteAbsenceById)
+            .get(AbsenceController.getAbsenceById);
         
         return this.app;
     }

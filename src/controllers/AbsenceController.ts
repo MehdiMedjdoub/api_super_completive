@@ -21,7 +21,8 @@ class AbsenceController {
     }
 
     async getAbsenceById(req: express.Request, res: express.Response) {
-        const absence = await AbsenceService.getOneById(req.params.id);
+        console.log(req)
+        const absence = await AbsenceService.getOneById(req.params.absenceId);
         res.status(200).json({
             error: false, 
             message: "profile de l'étudiant ", 
