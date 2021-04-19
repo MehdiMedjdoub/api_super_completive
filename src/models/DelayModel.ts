@@ -9,8 +9,8 @@ interface IDelay extends Document {
 }
 
 const DelaySchema: Schema = new Schema({
-    motive: { type: String, required: true },
-    isJustified: { type: Boolean, required: true },
+    motive: { type: String, required: false },
+    isJustified: { type: Boolean, required: false },
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'student'

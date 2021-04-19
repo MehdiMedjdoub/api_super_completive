@@ -16,7 +16,9 @@ export class DelaysRoutes extends CommonRoutesConfig {
 
         this.app
             .route(`/students/:studentId/delays/:delayId`)
-            .delete(DelayController.deleteDelayById);            
+            .delete(DelayController.deleteDelayById)
+            .get(DelayController.getDelayById)
+            .put(DelayController.updateDelayById);            
 
         return this.app;
     }
