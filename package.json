@@ -6,6 +6,7 @@
     "pm2start": "pm2 kill && pm2 start src/main.ts --watch && pm2 logs",
     "test": "echo \"Error: no test specified\" && exit 1",
     "local": "npm run tsc && nodemon ./dist/main.js",
+    "dev": "tsc && nodemon ./dist/main.js",
     "start": "node dist/main.js",
     "debug": "export DEBUG=* && npm run start",
     "tstest": "echo \"Error: no test specified\" && exit 1",
