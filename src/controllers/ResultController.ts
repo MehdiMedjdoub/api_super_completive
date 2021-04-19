@@ -3,7 +3,7 @@ import ResultService from '../services/ResultService';
 
 class ResultController {
     async createResult(req: express.Request, res: express.Response) {
-        const result = await ResultService.create(req.body);
+        const result = await ResultService.create(req);
         res.status(201).json({
             success: true,
             message: "Nouvelle note ajoutée",
