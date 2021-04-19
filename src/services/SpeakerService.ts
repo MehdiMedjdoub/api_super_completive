@@ -19,7 +19,7 @@ class SpeakerService implements CRUD {
     }
 
     async deleteById(id: string) {
-        //return AbsenceModel.deleteOne({_id: id}).exec();
+        return SpeakerModel.deleteOne({_id: id}).exec();
     }
 
     // async patchById(id: string, resource: PatchUserDto) {
