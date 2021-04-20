@@ -17,7 +17,7 @@ const transporter = nodemailer.createTransport({
     secure: true, // true for 465, false for other ports
     auth: {
         user: 'supercompletive@gmail.com',
-        pass: 'completive123!'
+        pass: 'supercompletive123!'
     },
     debug: true,
     logger: true
