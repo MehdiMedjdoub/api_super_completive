@@ -14,7 +14,7 @@ import nodemailer from 'nodemailer'
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
-    secure: false, // true for 465, false for other ports
+    secure: true, // true for 465, false for other ports
     auth: {
         user: 'supercompletive@gmail.com',
         pass: 'completive123!'
