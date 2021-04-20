@@ -25,6 +25,10 @@ app.get('/', (req: express.Request, res: express.Response) => {
     res.status(200).send(`Server up and running!`)
 });
 
+app.get('/test', (req: express.Request, res: express.Response) => {
+    res.render('test.ejs');
+});
+
 routes.push(new ApiDocRoutes(app));
 routes.push(new AuthRoutes(app));
 routes.push(new AbsencesRoutes(app));
