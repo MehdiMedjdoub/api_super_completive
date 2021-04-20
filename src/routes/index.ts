@@ -12,6 +12,7 @@ import { ResultsRoutes } from './ResultsRoutes';
 import { SanctionsRoutes } from './SanctionsRoutes';
 import { SpeakersRoutes } from './SpeakersRoutes';
 import { StudentsRoutes } from './StudentsRoutes';
+import { MessagesRoutes } from './MessagesRoutes';
 //import { UsersRoutes } from './UsersRoutes';
 
 const app: express.Application = express();
@@ -36,5 +37,6 @@ routes.push(new ResultsRoutes(app));
 routes.push(new SanctionsRoutes(app));
 routes.push(new SpeakersRoutes(app));
 routes.push(new StudentsRoutes(app));
+routes.push(new MessagesRoutes(app));
 
 export {routes, app};

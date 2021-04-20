@@ -12,22 +12,22 @@ export class EmployeesRoutes extends CommonRoutesConfig {
         this.app
             .route(`/employees`)
             .post(
-                //AuthJwt.verifyToken, 
+                AuthJwt.verifyToken, 
                 EmployeeController.createEmployee)
             .get(
-                //AuthJwt.verifyToken, 
+                AuthJwt.verifyToken, 
                 EmployeeController.getAllEmployee);
     
         this.app
             .route(`/employees/:id`)
             .get(
-                //AuthJwt.verifyToken, 
+                AuthJwt.verifyToken, 
                 EmployeeController.getEmployeeById)
             .delete(
-                //AuthJwt.verifyToken, 
+                AuthJwt.verifyToken, 
                 EmployeeController.deleteEmployeeById)
             .put(
-                //AuthJwt.verifyToken, 
+                AuthJwt.verifyToken, 
                 EmployeeController.updateEmployeeById);
 
         return this.app;

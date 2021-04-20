@@ -29,7 +29,7 @@ class SanctionController {
     }
 
     async getSanctionById(req: express.Request, res: express.Response) {
-        const sanction = await SanctionService.getOneById(req.params.id);
+        const sanction = await SanctionService.getOneById(req.params.sanctionId);
         res.status(200).json({
             success: true, 
             message: "Sanction ", 
