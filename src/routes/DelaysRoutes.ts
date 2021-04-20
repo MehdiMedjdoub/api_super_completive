@@ -1,6 +1,7 @@
 import { CommonRoutesConfig } from './CommonRoutes';
 import DelayController from '../controllers/DelayController';
 import express from 'express';
+import AuthJwt from '../middlewares/authJwt'
 
 export class DelaysRoutes extends CommonRoutesConfig {
     constructor(app: express.Application) {
@@ -10,14 +11,14 @@ export class DelaysRoutes extends CommonRoutesConfig {
     configureRoutes(): express.Application {
         this.app
             .route(`/students/:studentId/delays`)
-            .post(DelayController.createDelay)
-            .get(DelayController.getAllDelays);
+            .post(AuthJwt.verifyToken, DelayController.createDelay)
+            .get(AuthJwt.verifyToken, DelayController.getAllDelays);
 
         this.app
             .route(`/students/:studentId/delays/:delayId`)
-            .delete(DelayController.deleteDelayById)
-            .get(DelayController.getDelayById)
-            .put(DelayController.updateDelayById);            
+            .delete(AuthJwt.verifyToken, DelayController.deleteDelayById)
+            .get(AuthJwt.verifyToken, DelayController.getDelayById)
+            .put(AuthJwt.verifyToken, DelayController.updateDelayById);            
 
         return this.app;
     }

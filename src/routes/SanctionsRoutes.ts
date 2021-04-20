@@ -1,6 +1,7 @@
 import { CommonRoutesConfig } from './CommonRoutes';
 import SanctionController from '../controllers/SanctionController';
 import express from 'express';
+import AuthJwt from '../middlewares/authJwt'
 
 export class SanctionsRoutes extends CommonRoutesConfig {
     constructor(app: express.Application) {
@@ -10,14 +11,14 @@ export class SanctionsRoutes extends CommonRoutesConfig {
     configureRoutes(): express.Application {
         this.app
             .route(`/students/:studentId/sanctions`)
-            .post(SanctionController.createSanction)
-            .get(SanctionController.getAllSanctions);
+            .post(AuthJwt.verifyToken, SanctionController.createSanction)
+            .get(AuthJwt.verifyToken, SanctionController.getAllSanctions);
         
         this.app
             .route(`/students/:studentId/sanctions/:sanctionId`)
-            .delete(SanctionController.deleteSanctionById)
-            .get(SanctionController.getSanctionById)
-            .put(SanctionController.updateSanctionById);
+            .delete(AuthJwt.verifyToken, SanctionController.deleteSanctionById)
+            .get(AuthJwt.verifyToken, SanctionController.getSanctionById)
+            .put(AuthJwt.verifyToken, SanctionController.updateSanctionById);
         
         return this.app;
     }

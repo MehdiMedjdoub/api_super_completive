@@ -11,16 +11,14 @@ export class StudentsRoutes extends CommonRoutesConfig {
     configureRoutes(): express.Application {
         this.app
             .route(`/students`)
-            .post(StudentController.createStudent)
-            .get(
-                // AuthJwt.verifyToken, 
-                StudentController.getAllStudent);
+            .post(AuthJwt.verifyToken, StudentController.createStudent)
+            .get(AuthJwt.verifyToken, StudentController.getAllStudent);
     
         this.app
             .route(`/students/:id`)
-            .get(StudentController.getStudentById)
-            .delete(StudentController.deleteStudentById)
-            .put(StudentController.updateStudentById);
+            .get(AuthJwt.verifyToken, StudentController.getStudentById)
+            .delete(AuthJwt.verifyToken, StudentController.deleteStudentById)
+            .put(AuthJwt.verifyToken, StudentController.updateStudentById);
                 
         return this.app;
     }

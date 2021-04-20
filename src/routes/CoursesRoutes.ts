@@ -11,12 +11,12 @@ export class CoursesRoutes extends CommonRoutesConfig {
     configureRoutes(): express.Application {
         this.app
             .route(`/courses`)
-            .post(CourseController.createCourse)
-            .get(CourseController.getAllCourses);
+            .post(AuthJwt.verifyToken, CourseController.createCourse)
+            .get(AuthJwt.verifyToken, CourseController.getAllCourses);
         
         this.app
             .route(`/courses/:id`)
-            .delete(CourseController.deleteCourseById);
+            .delete(AuthJwt.verifyToken, CourseController.deleteCourseById);
     
         return this.app;
     }

@@ -11,15 +11,13 @@ export class SpeakersRoutes extends CommonRoutesConfig {
     configureRoutes(): express.Application {
         this.app
             .route(`/speakers`)
-            .post(SpeakerController.createSpeaker)
-            .get(
-                // AuthJwt.verifyToken, 
-                SpeakerController.getAllSpeakers);
+            .post(AuthJwt.verifyToken, SpeakerController.createSpeaker)
+            .get(AuthJwt.verifyToken, SpeakerController.getAllSpeakers);
     
         this.app
             .route(`/speakers/:id`)
-            .get(SpeakerController.getSpeakerById)
-            .delete(SpeakerController.deleteSpeakerById);
+            .get(AuthJwt.verifyToken, SpeakerController.getSpeakerById)
+            .delete(AuthJwt.verifyToken, SpeakerController.deleteSpeakerById);
             
         return this.app;
     }

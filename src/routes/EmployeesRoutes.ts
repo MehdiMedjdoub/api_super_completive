@@ -11,24 +11,14 @@ export class EmployeesRoutes extends CommonRoutesConfig {
     configureRoutes(): express.Application {
         this.app
             .route(`/employees`)
-            .post(
-                AuthJwt.verifyToken, 
-                EmployeeController.createEmployee)
-            .get(
-                AuthJwt.verifyToken, 
-                EmployeeController.getAllEmployee);
+            .post(AuthJwt.verifyToken, EmployeeController.createEmployee)
+            .get(AuthJwt.verifyToken, EmployeeController.getAllEmployee);
     
         this.app
             .route(`/employees/:id`)
-            .get(
-                AuthJwt.verifyToken, 
-                EmployeeController.getEmployeeById)
-            .delete(
-                AuthJwt.verifyToken, 
-                EmployeeController.deleteEmployeeById)
-            .put(
-                AuthJwt.verifyToken, 
-                EmployeeController.updateEmployeeById);
+            .get(AuthJwt.verifyToken, EmployeeController.getEmployeeById)
+            .delete(AuthJwt.verifyToken, EmployeeController.deleteEmployeeById)
+            .put(AuthJwt.verifyToken, EmployeeController.updateEmployeeById);
 
         return this.app;
     }

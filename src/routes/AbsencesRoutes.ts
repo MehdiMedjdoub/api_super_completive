@@ -1,6 +1,7 @@
 import { CommonRoutesConfig } from './CommonRoutes';
 import AbsenceController from '../controllers/AbsenceController';
 import express from 'express';
+import AuthJwt from '../middlewares/authJwt'
 
 export class AbsencesRoutes extends CommonRoutesConfig {
     constructor(app: express.Application) {
@@ -10,14 +11,14 @@ export class AbsencesRoutes extends CommonRoutesConfig {
     configureRoutes(): express.Application {
         this.app
             .route(`/students/:studentId/absences`)
-            .post(AbsenceController.createAbsence)
-            .get(AbsenceController.getAllAbsences);
+            .post(AuthJwt.verifyToken, AbsenceController.createAbsence)
+            .get(AuthJwt.verifyToken, AbsenceController.getAllAbsences);
         
         this.app
             .route(`/students/:studentId/absences/:absenceId`)
-            .delete(AbsenceController.deleteAbsenceById)
-            .get(AbsenceController.getAbsenceById)
-            .put(AbsenceController.updateDelayById);
+            .delete(AuthJwt.verifyToken, AbsenceController.deleteAbsenceById)
+            .get(AuthJwt.verifyToken, AbsenceController.getAbsenceById)
+            .put(AuthJwt.verifyToken, AbsenceController.updateDelayById);
         
         return this.app;
     }
