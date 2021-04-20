@@ -10,7 +10,8 @@
     "start": "node dist/main.js",
     "debug": "export DEBUG=* && npm run start",
     "tstest": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run tsc -p",
+    "build": "npm run tsc -p && npm run copy:views",
+    "copy:views": "cp -R 'views/' 'dist/views'",
     "tsc": "tsc"
   },
   "heroku-run-build-script": true,
