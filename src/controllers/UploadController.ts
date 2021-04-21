@@ -1,14 +1,36 @@
 const uploadFile = require("../middlewares/UploadFile");
 const fs = require('fs');
 const http = require('http')
-
 import express from 'express';
+import  { StudentModel } from '../models/StudentModel';
+import  { SpeakerModel } from '../models/SpeakerModel';
+import  { EmployeeModel } from '../models/EmployeeModel';
 
 class UploadController {
     async upload (req: any, res: express.Response) {
     try {
         await uploadFile(req, res);
-        console.log(req.file)
+        const userId = req.body.user
+
+        if(!req.body.userType) {
+            res.status(400).send({
+                success: false,
+                message: "Missing userType. available values: 'student', 'speaker', 'employee'",
+            });
+            return;
+        }
+
+        switch(req.body.userType) {
+            case 'student':
+                return StudentModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();;
+            case 'speaker':
+                return SpeakerModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();;
+            case 'employee':
+                return EmployeeModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();;
+            default:
+                return;
+        }
+        
         // if (req.file == undefined) {
         // return res.status(400).send({ message: "Please upload a file!" });
         // }
