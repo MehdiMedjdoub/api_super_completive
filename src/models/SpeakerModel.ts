@@ -13,6 +13,7 @@ interface ISpeaker extends Document {
     subjects: [];
     siretNumber: string;
     firstLogin: Boolean;
+    haveAvatar: Boolean;
 }
 
 const SpeakerSchema: Schema = new Schema({
@@ -32,7 +33,8 @@ const SpeakerSchema: Schema = new Schema({
         }
     ],
     siretNumber: { type: String, required: true },
-    firstLogin: { type: Boolean, required: false }
+    firstLogin: { type: Boolean, required: false },
+    haveAvatar: { type: Boolean, required: false }
 });
 
 export const SpeakerModel: Model<ISpeaker> = model('speaker', SpeakerSchema);

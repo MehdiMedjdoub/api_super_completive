@@ -18,6 +18,7 @@ interface IStudent extends Document {
     sanctions:[];
     results:[];
     firstLogin: Boolean;
+    haveAvatar: Boolean;
 }
 
 const StudentSchema: Schema = new Schema({
@@ -57,7 +58,8 @@ const StudentSchema: Schema = new Schema({
         ref: "result"
         }
     ],
-    firstLogin: { type: Boolean, required: false }
+    firstLogin: { type: Boolean, required: false },
+    haveAvatar: { type: Boolean, required: false }
 });
 
 export const StudentModel: Model<IStudent> = model('student', StudentSchema);

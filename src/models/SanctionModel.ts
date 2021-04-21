@@ -16,8 +16,8 @@ const SanctionSchema: Schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'student'
     },
-    startDate: { type: Date, required: true },
-    duration: { type: Number, required: true }
+    startDate: { type: Date, required: false },
+    duration: { type: Number, required: false }
 });
 
 export const SanctionModel: Model<ISanction> = model('sanction', SanctionSchema);
