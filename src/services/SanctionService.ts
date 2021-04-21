@@ -10,7 +10,11 @@ class SanctionService implements CRUD {
     }
 
     async getAllByStudent(studentId: any) {
-        return SanctionModel.find({owner: studentId}).populate('student').exec(); 
+        const sanctions = await SanctionModel.find({owner: studentId}).populate('student').exec(); 
+        const result = []
+        result.push(studentId);
+        result.push(sanctions)
+        return result;
     }
 
     async getOneById(id: string) {

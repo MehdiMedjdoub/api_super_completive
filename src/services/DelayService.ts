@@ -10,7 +10,11 @@ class DelayService implements CRUD {
     }
 
     async getAllByStudent(studentId: any) {
-        return DelayModel.find({owner: studentId}).populate('student').exec(); 
+        const delays = await DelayModel.find({owner: studentId}).populate('student').exec(); 
+        const result = []
+        result.push(studentId);
+        result.push(delays)
+        return result;
     }
 
     async getOneById(id: string) {

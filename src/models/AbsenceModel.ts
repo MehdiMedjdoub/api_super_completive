@@ -2,6 +2,7 @@ import { ObjectId } from 'bson';
 import { model, Schema, Model, Document } from 'mongoose';
 
 interface IAbsence extends Document {
+    subject: string;
     motive: string;
     isJustified: boolean;
     owner: ObjectId;
@@ -10,6 +11,7 @@ interface IAbsence extends Document {
 }
 
 const AbsenceSchema: Schema = new Schema({
+    subject: { type: String, required: false },
     motive: { type: String, required: false },
     isJustified: { type: Boolean, required: true },
     owner: {

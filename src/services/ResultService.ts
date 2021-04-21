@@ -10,7 +10,11 @@ class ResultService implements CRUD {
     }
 
     async getAllByStudent(studentId: any) {
-        return ResultModel.find({owner: studentId}).populate('student').exec(); 
+        const notes =  await ResultModel.find({owner: studentId}).populate('student').exec();
+        const result = []
+        result.push(studentId);
+        result.push(notes)
+        return result;
     }
 
     async getOneById(id: string) {

@@ -10,7 +10,11 @@ class AbsenceService implements CRUD {
     }
 
     async getAllByStudent(studentId: any) {
-        return AbsenceModel.find({owner: studentId}).populate('student').exec(); 
+        const absences = await AbsenceModel.find({owner: studentId}).populate('student').exec(); 
+        const result = []
+        result.push(studentId);
+        result.push(absences)
+        return result;
     }
 
     async getOneById(id: string) {
