@@ -20,20 +20,32 @@ class UploadController {
             return;
         }
 
+        if (req.file == undefined) {
+        return res.status(400).send({ message: "Please upload a file!" });
+        }
+
+        let user
         switch(req.body.userType) {
             case 'student':
-                return StudentModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();;
+                user = StudentModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();
+                return user;
+                break;
             case 'speaker':
-                return SpeakerModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();;
+                user = SpeakerModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();
+                return user;
+                break;
             case 'employee':
-                return EmployeeModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();;
-            default:
-                return;
+                user = EmployeeModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();
+                return user;
+                break;
         }
-        
-        // if (req.file == undefined) {
-        // return res.status(400).send({ message: "Please upload a file!" });
-        // }
+
+        console.log(user)
+        res.status(200).json({
+            success: true, 
+            message: "image uploadée avec succés", 
+            data: user
+        });
 
         // res.status(200).send({
         // message: "Uploaded the file successfully: " + req.file.originalname,
