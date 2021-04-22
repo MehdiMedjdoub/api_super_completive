@@ -36,7 +36,7 @@ const SpeakerSchema: Schema = new Schema({
     siretNumber: { type: String, required: true },
     firstLogin: { type: Boolean, required: false },
     haveAvatar: { type: Boolean, required: false },
-    avatar: { type: Boolean, required: false },
+    avatar: { type: String, required: false },
 });
 
 export const SpeakerModel: Model<ISpeaker> = model('speaker', SpeakerSchema);

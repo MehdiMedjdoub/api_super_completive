@@ -42,7 +42,7 @@ const EmployeeSchema: Schema = new Schema({
     identifiant: { type: String, required: false },
     poste: { type: String, required: false },
     firstLogin: { type: Boolean, required: false },
-    avatar: { type: Boolean, required: false },
+    avatar: { type: String, required: false },
 
     
     

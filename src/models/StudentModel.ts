@@ -61,7 +61,7 @@ const StudentSchema: Schema = new Schema({
     ],
     firstLogin: { type: Boolean, required: false },
     haveAvatar: { type: Boolean, required: false },
-    avatar: { type: Boolean, required: false },
+    avatar: { type: String, required: false },
 });
 
 export const StudentModel: Model<IStudent> = model('student', StudentSchema);

@@ -27,13 +27,13 @@ class UploadController {
 
         let user = {}
         if(req.body.userType === 'student') {
-            user = await StudentModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true, avatar: req.file.filname}}).exec();
+            user = await StudentModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();
         }
         else if(req.body.userType === 'speaker') {
-            user = await SpeakerModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true, avatar: req.file.filname}}).exec();
+            user = await SpeakerModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();
         }
         else if(req.body.userType === 'employee') {
-            user = await EmployeeModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true, avatar: req.file.filname}}).exec();
+            user = await EmployeeModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();
         }
         
         res.status(200).json({
@@ -53,18 +53,7 @@ class UploadController {
     };
 
     async getFile (req: any, res: any) {
-        let user 
-        if(req.body.userType === 'student') {
-            user = await StudentModel.findOne({_id: req.params.userId}).exec();
-        }
-        else if(req.body.userType === 'speaker') {
-            user = await SpeakerModel.findOne({_id: req.params.userId}).exec();
-        }
-        else if(req.body.userType === 'employee') {
-            user = await EmployeeModel.findOne({_id: req.params.userId}).exec();
-        }
-
-        const path = `./public/static/assets/uploads/avatar/${user.avatar}`
+        const path = `./public/static/assets/uploads/avatar/${req.params.userId}.jpg`
         fs.access(path, fs.F_OK, (err: any) => {
             if (err) {
               console.error(err)

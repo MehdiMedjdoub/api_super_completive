@@ -3,8 +3,6 @@ const multer = require("multer");
 const maxSize = 2 * 1024 * 1024;
 import crypto from 'crypto'
 import { extname } from 'path'
-import slug from 'slug'
-import fs from 'fs'
 
 let storage = multer.diskStorage({
   destination: (req: any, file: any, cb: any) => {
@@ -14,7 +12,7 @@ let storage = multer.diskStorage({
   filename: (req: any, file: any, cb: any) => {
     const id = req.body.user 
     const extName = extname(file.originalname)
-    const fileName = id + '_' + Date.now() + extName
+    const fileName = id + extName
       crypto.randomBytes(3, (err, res) => {
         if (err) return cb(err)
         
