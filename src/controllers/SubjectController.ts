@@ -1,5 +1,5 @@
 import express from 'express';
-import SubjectService from '../services/StudentService';
+import SubjectService from '../services/SubjectService';
 
 class SubjectController {
     async createSubject(req: express.Request, res: express.Response) {
@@ -13,11 +13,11 @@ class SubjectController {
     }
 
     async getAllSubjects(req: express.Request, res: express.Response) {
-        const students = await SubjectService.getAll();
+        const subjects = await SubjectService.getAll();
         res.status(200).json({
             success: true, 
             message: "Liste des Matières", 
-            data: students
+            data: subjects
         });
     }
 
