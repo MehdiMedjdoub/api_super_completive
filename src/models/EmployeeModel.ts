@@ -18,6 +18,7 @@ interface IEmployee extends Document {
     poste: string;
     firstLogin: Boolean;
     haveAvatar: Boolean;
+    avatar: string;
 }
 
 const EmployeeSchema: Schema = new Schema({
@@ -41,7 +42,10 @@ const EmployeeSchema: Schema = new Schema({
     identifiant: { type: String, required: false },
     poste: { type: String, required: false },
     firstLogin: { type: Boolean, required: false },
-    haveAvatar: { type: Boolean, required: false }
+    avatar: { type: Boolean, required: false },
+
+    
+    
 });
 
 // EmployeeSchema.plugin(mongoosePaginate);

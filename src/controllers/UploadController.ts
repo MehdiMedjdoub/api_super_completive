@@ -20,19 +20,20 @@ class UploadController {
             return;
         }
 
+        console.log(req.file)
         if (req.file == undefined) {
         return res.status(400).send({ message: "Please upload a file!" });
         }
 
         let user = {}
         if(req.body.userType === 'student') {
-            user = await StudentModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();
+            user = await StudentModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true, avatar: req.file.filname}}).exec();
         }
         else if(req.body.userType === 'speaker') {
-            user = await SpeakerModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();
+            user = await SpeakerModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true, avatar: req.file.filname}}).exec();
         }
         else if(req.body.userType === 'employee') {
-            user = await EmployeeModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();
+            user = await EmployeeModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true, avatar: req.file.filname}}).exec();
         }
         
         res.status(200).json({
@@ -52,7 +53,18 @@ class UploadController {
     };
 
     async getFile (req: any, res: any) {
-        const path = `./public/static/assets/uploads/avatar/${req.params.userId}.jpg`
+        let user 
+        if(req.body.userType === 'student') {
+            user = await StudentModel.findOne({_id: req.params.userId}).exec();
+        }
+        else if(req.body.userType === 'speaker') {
+            user = await SpeakerModel.findOne({_id: req.params.userId}).exec();
+        }
+        else if(req.body.userType === 'employee') {
+            user = await EmployeeModel.findOne({_id: req.params.userId}).exec();
+        }
+
+        const path = `./public/static/assets/uploads/avatar/${user.avatar}`
         fs.access(path, fs.F_OK, (err: any) => {
             if (err) {
               console.error(err)

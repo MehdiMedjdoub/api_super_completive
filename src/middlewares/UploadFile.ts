@@ -14,7 +14,7 @@ let storage = multer.diskStorage({
   filename: (req: any, file: any, cb: any) => {
     const id = req.body.user 
     const extName = extname(file.originalname)
-    const fileName = id + extName
+    const fileName = id + '_' + Date.now() + extName
       crypto.randomBytes(3, (err, res) => {
         if (err) return cb(err)
         
