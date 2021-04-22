@@ -39,6 +39,15 @@ class SpeakerController {
             data: speaker
         });
     }
+
+    async updateSpeakerById(req: express.Request, res: express.Response) {
+        const speaker = await SpeakerService.updateById(req);
+        res.status(200).json({
+            success: true, 
+            message: "mise à jours de l'intervenant effectuée avec succès", 
+            data: speaker
+        });
+    }
 }
 
 export default new SpeakerController();

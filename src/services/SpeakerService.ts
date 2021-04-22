@@ -26,9 +26,9 @@ class SpeakerService implements CRUD {
     //     return UserModel.patchUserById(id, resource);
     // }
 
-    // async putById(id: string, resource: PutUserDto) {
-    //     return UserModel.putUserById(id, resource);
-    // }
+    async updateById(req: any) {
+        return await SpeakerModel.findOneAndUpdate({_id: req.params.id}, req.body).exec();
+    }
 
     // async getUserByEmail(email: string) {
     //     return UserModel.getUserByEmail(email);

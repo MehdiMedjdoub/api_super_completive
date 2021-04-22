@@ -17,7 +17,8 @@ export class SpeakersRoutes extends CommonRoutesConfig {
         this.app
             .route(`/speakers/:id`)
             .get(AuthJwt.verifyToken, SpeakerController.getSpeakerById)
-            .delete(AuthJwt.verifyToken, SpeakerController.deleteSpeakerById);
+            .delete(AuthJwt.verifyToken, SpeakerController.deleteSpeakerById)
+            .put(AuthJwt.verifyToken, SpeakerController.updateSpeakerById);
             
         return this.app;
     }
