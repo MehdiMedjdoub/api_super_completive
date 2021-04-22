@@ -1,4 +1,5 @@
 import { SpeakerModel } from '../models/SpeakerModel'
+import { SubjectModel } from '../models/SubjectModel'
 import { CRUD } from '../interfaces/CrudInterface';
 import mongoose from "mongoose";
 
@@ -22,17 +23,25 @@ class SpeakerService implements CRUD {
         return SpeakerModel.deleteOne({_id: id}).exec();
     }
 
-    // async patchById(id: string, resource: PatchUserDto) {
-    //     return UserModel.patchUserById(id, resource);
-    // }
-
     async updateById(req: any) {
-        return await SpeakerModel.findOneAndUpdate({_id: req.params.id}, req.body).exec();
-    }
+        const subjects = req.body.subjects
 
-    // async getUserByEmail(email: string) {
-    //     return UserModel.getUserByEmail(email);
-    // }
+        let newSubject
+        let subjectId
+
+        await SpeakerModel.findOneAndUpdate({_id: req.body.speaker._id}, req.body.speaker).exec();
+        await SpeakerModel.findOneAndUpdate({_id: req.body.speaker._id}, {$set: {subjects: []}}).exec();
+        subjects.forEach(async (subject: any) => {
+            newSubject = await SubjectModel.findOne({name: subject}).then(async data => {
+                subjectId = data._id;
+                await SpeakerModel.findOneAndUpdate({_id: req.body.speaker._id}, {$push: {subjects: subjectId}}).exec();
+                await SubjectModel.findOneAndUpdate({_id: data._id}, {$push: {owners: req.body.speaker._id}}).exec();
+            });
+        });
+
+        const speakerUpdated = await SpeakerModel.find({_id: req.body.speaker._id}).exec();
+        return speakerUpdated
+    }
 }
 
 export default new SpeakerService();

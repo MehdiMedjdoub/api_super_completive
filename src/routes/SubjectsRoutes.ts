@@ -11,9 +11,19 @@ export class SubjectsRoutes extends CommonRoutesConfig {
     configureRoutes(): express.Application {
         this.app
             .route(`/subjects`)
-            .post(AuthJwt.verifyToken, SubjectController.createSubject)
-            .get(AuthJwt.verifyToken, SubjectController.getAllSubjects);
-    
+            .post(
+                // AuthJwt.verifyToken, 
+                SubjectController.createSubject)
+            .get(
+                // AuthJwt.verifyToken, 
+                SubjectController.getAllSubjects);
+        
+        this.app
+            .route(`/subjects/speaker/:id`)
+            .get(
+                // AuthJwt.verifyToken, 
+                SubjectController.getAllBySpeaker);
+
         this.app
             .route(`/subjects/:id`)
             .get(AuthJwt.verifyToken, SubjectController.getSubjectById)

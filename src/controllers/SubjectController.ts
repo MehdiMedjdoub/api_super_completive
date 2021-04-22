@@ -21,6 +21,16 @@ class SubjectController {
         });
     }
 
+    async getAllBySpeaker(req: express.Request, res: express.Response) {
+        const subjects = await SubjectService.getAllBySpeaker(req.params.id);
+
+        res.status(200).json({
+            success: true, 
+            message: "Liste des Matières d'un profs", 
+            data: subjects
+        });
+    }
+
     async getSubjectById(req: express.Request, res: express.Response) {
         const subject = await SubjectService.getOneById(req.params.id);
 

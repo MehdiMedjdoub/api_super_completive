@@ -11,7 +11,7 @@ interface ISpeaker extends Document {
     complAdress: string;
     cp: string;
     city: string;
-    subjects: [];
+    subjects?: any[];
     siretNumber: string;
     firstLogin: Boolean;
     haveAvatar: Boolean;
@@ -26,7 +26,7 @@ const SpeakerSchema: Schema = new Schema({
     password: { type: String, required: false },
     phone: { type: String, required: true },
     adress: { type: String, required: true },
-    complAdress: { type: String, required: true },
+    complAdress: { type: String, required: false },
     cp: { type: String, required: true },
     city: { type: String, required: true },
     subjects: [
