@@ -8,6 +8,7 @@ interface ISpeaker extends Document {
     password: string;
     phone: string;
     adress: string;
+    complAdress: string;
     cp: string;
     city: string;
     subjects: [];
@@ -25,6 +26,7 @@ const SpeakerSchema: Schema = new Schema({
     password: { type: String, required: false },
     phone: { type: String, required: true },
     adress: { type: String, required: true },
+    complAdress: { type: String, required: true },
     cp: { type: String, required: true },
     city: { type: String, required: true },
     subjects: [
@@ -33,7 +35,7 @@ const SpeakerSchema: Schema = new Schema({
         ref: "subjects"
         }
     ],
-    siretNumber: { type: String, required: true },
+    siretNumber: { type: String, required: false },
     firstLogin: { type: Boolean, required: false },
     haveAvatar: { type: Boolean, required: false },
     avatar: { type: String, required: false },

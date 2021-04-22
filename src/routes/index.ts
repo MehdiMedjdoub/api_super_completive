@@ -14,6 +14,7 @@ import { SpeakersRoutes } from './SpeakersRoutes';
 import { StudentsRoutes } from './StudentsRoutes';
 import { MessagesRoutes } from './MessagesRoutes';
 import { UploadsRoutes } from './UploadsRoutes';
+import { SubjectsRoutes } from './SubjectsRoutes';
 
 const app: express.Application = express();
 const routes: Array<CommonRoutesConfig> = [];
@@ -40,6 +41,7 @@ routes.push(new ResultsRoutes(app));
 routes.push(new SanctionsRoutes(app));
 routes.push(new SpeakersRoutes(app));
 routes.push(new StudentsRoutes(app));
+routes.push(new SubjectsRoutes(app));
 routes.push(new MessagesRoutes(app));
 routes.push(new UploadsRoutes(app));
 
