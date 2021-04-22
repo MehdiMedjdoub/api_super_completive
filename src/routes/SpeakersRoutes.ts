@@ -12,22 +12,22 @@ export class SpeakersRoutes extends CommonRoutesConfig {
         this.app
             .route(`/speakers`)
             .post(
-                // AuthJwt.verifyToken, 
+                AuthJwt.verifyToken, 
                 SpeakerController.createSpeaker)
             .get(
-                // AuthJwt.verifyToken, 
+                AuthJwt.verifyToken, 
                 SpeakerController.getAllSpeakers);
     
         this.app
             .route(`/speakers/:id`)
             .get(
-                // AuthJwt.verifyToken, 
+                AuthJwt.verifyToken, 
                 SpeakerController.getSpeakerById)
             .delete(
-                // AuthJwt.verifyToken, 
+                AuthJwt.verifyToken, 
                 SpeakerController.deleteSpeakerById)
             .put(
-                // AuthJwt.verifyToken, 
+                AuthJwt.verifyToken, 
                 SpeakerController.updateSpeakerById);
             
         return this.app;

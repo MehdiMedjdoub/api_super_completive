@@ -20,20 +20,19 @@ class UploadController {
             return;
         }
 
-        console.log(req.file)
         if (req.file == undefined) {
         return res.status(400).send({ message: "Please upload a file!" });
         }
 
         let user = {}
         if(req.body.userType === 'student') {
-            user = await StudentModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();
+            user = await StudentModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true, avatar: req.file.filename}}).exec();
         }
         else if(req.body.userType === 'speaker') {
-            user = await SpeakerModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();
+            user = await SpeakerModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true, avatar: req.file.filename}}).exec();
         }
         else if(req.body.userType === 'employee') {
-            user = await EmployeeModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();
+            user = await EmployeeModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true, avatar: req.file.filename}}).exec();
         }
         
         res.status(200).json({
@@ -53,21 +52,39 @@ class UploadController {
     };
 
     async getFile (req: any, res: any) {
-        const path = `./public/static/assets/uploads/avatar/${req.params.userId}.jpg`
-        fs.access(path, fs.F_OK, (err: any) => {
-            if (err) {
-              console.error(err)
-              return
-            }
-          
-            //file exists
-            fs.readFile(path, function(err: any, data: any) {
-                if (err) throw err // Fail if the file can't be read.
+        
+        let user
+        user = await StudentModel.findOne({_id: req.params.userId}).exec();
+            if (!user){
+                user = await SpeakerModel.findOne({_id: req.params.userId}).exec();
+                if (!user) {
+                    user = await EmployeeModel.findOne({_id: req.params.userId}).exec();
+                        if(!user){
+                            return;
+                        }
+                }
+            }   
 
-                res.writeHead(200, {'Content-Type': 'image/jpeg'})
-                res.end(data) // Send the file data to the browser.
+
+        if(user.avatar) {
+            const path = `./public/static/assets/uploads/avatar/${user.avatar}`
+            
+            fs.access(path, fs.F_OK, (err: any) => {
+                if (err) {
+                console.error(err)
+                return
+                }
+            
+                //file exists
+                fs.readFile(path, function(err: any, data: any) {
+                    if (err) throw err // Fail if the file can't be read.
+
+                    res.writeHead(200, {'Content-Type': 'image/jpeg'})
+                    res.end(data) // Send the file data to the browser.
+                })
             })
-        })
+        }
+
         // fs.readFile(`./public/static/assets/uploads/${req.params.userId}.jpg`, function(err: any, data: any) {
         //     if (err) throw err // Fail if the file can't be read.
         //     // http.createServer(function(req: any, res: any) {

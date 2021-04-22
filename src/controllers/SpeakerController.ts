@@ -1,15 +1,55 @@
 import express from 'express';
 import SpeakerService from '../services/SpeakerService';
 import AuthService from '../services/AuthService';
+import { exitOnError } from 'winston';
 
 class SpeakerController {
     async createSpeaker(req: express.Request, res: express.Response) {
 
-        const speaker = await AuthService.singUp(req, res);
+        const speaker = req.body
+        console.log(speaker)
+        if(
+            !speaker.firstName || !speaker.lastName || !speaker.email || !speaker.phone ||
+            !speaker.adress || !speaker.cp || !speaker.city || !speaker.siretNumber 
+            )
+            {
+                res.status(400).json({
+                    success: false, 
+                    message: "Une ou plusieurs données obligatoires sont manquantes", 
+                });
+                return;
+            }
+
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(!re.test(String(speaker.email).toLowerCase())) {
+            res.status(400).json({
+                success: false, 
+                message: "Le format de l'adresse email n'est pas valide", 
+            });
+            return;
+        }
+
+        if(isNaN(speaker.phone)) {
+            res.status(400).json({
+                success: false, 
+                message: "Le numero de téléphone doit être une serie de chiffres", 
+            });
+            return
+        }
+
+        if(speaker.siretNumber.length != 14) {
+            res.status(400).json({
+                success: false, 
+                message: "Le numero siret doit être une série de 14 chiffres", 
+            });
+            return;
+        }
+
+        const result = await AuthService.singUp(req, res);
         res.status(201).json({
             error: false,
             message: "Intervenant crée avec succès",
-            data: speaker
+            data: result
         });
     }
 
@@ -36,7 +76,6 @@ class SpeakerController {
         res.status(200).json({
             error: false, 
             message: "l'intervenant a été supprimé", 
-            data: speaker
         });
     }
 
@@ -53,13 +92,16 @@ class SpeakerController {
                     success: false, 
                     message: "Une ou plusieurs données obligatoires sont manquantes", 
                 });
+                return;
             }
 
-        if(speaker.siretNumber.length != 14) {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(!re.test(String(speaker.email).toLowerCase())) {
             res.status(400).json({
                 success: false, 
-                message: "Le numero siret doit être une série de 14 chiffres", 
+                message: "Le format de l'adresse email n'est pas valide", 
             });
+            return;
         }
 
         if(isNaN(speaker.phone)) {
@@ -67,6 +109,15 @@ class SpeakerController {
                 success: false, 
                 message: "Le numero de téléphone doit être une serie de chiffres", 
             });
+            return
+        }
+
+        if(speaker.siretNumber.length != 14) {
+            res.status(400).json({
+                success: false, 
+                message: "Le numero siret doit être une série de 14 chiffres", 
+            });
+            return;
         }
 
         const result = await SpeakerService.updateById(req);

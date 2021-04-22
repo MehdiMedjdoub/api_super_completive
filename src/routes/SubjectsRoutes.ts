@@ -12,16 +12,16 @@ export class SubjectsRoutes extends CommonRoutesConfig {
         this.app
             .route(`/subjects`)
             .post(
-                // AuthJwt.verifyToken, 
+                AuthJwt.verifyToken, 
                 SubjectController.createSubject)
             .get(
-                // AuthJwt.verifyToken, 
+                AuthJwt.verifyToken, 
                 SubjectController.getAllSubjects);
         
         this.app
             .route(`/subjects/speaker/:id`)
             .get(
-                // AuthJwt.verifyToken, 
+                AuthJwt.verifyToken, 
                 SubjectController.getAllBySpeaker);
 
         this.app

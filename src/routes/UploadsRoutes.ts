@@ -10,10 +10,10 @@ export class UploadsRoutes extends CommonRoutesConfig {
 
     configureRoutes(): express.Application {
         this.app.route(`/files/:userId/upload`).post(
-            // AuthJwt.verifyToken, 
+            AuthJwt.verifyToken, 
             UploadController.upload);
         this.app.route(`/files/:userId`).get(
-            // AuthJwt.verifyToken, 
+            AuthJwt.verifyToken, 
             UploadController.getFile);
         return this.app;
     }
