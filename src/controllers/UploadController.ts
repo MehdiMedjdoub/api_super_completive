@@ -24,23 +24,17 @@ class UploadController {
         return res.status(400).send({ message: "Please upload a file!" });
         }
 
-        let user
-        switch(req.body.userType) {
-            case 'student':
-                user = StudentModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();
-                return user;
-                break;
-            case 'speaker':
-                user = SpeakerModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();
-                return user;
-                break;
-            case 'employee':
-                user = EmployeeModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();
-                return user;
-                break;
+        let user = {}
+        if(req.body.userType === 'student') {
+            user = await StudentModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();
         }
-
-        console.log(user)
+        else if(req.body.userType === 'speaker') {
+            user = await SpeakerModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();
+        }
+        else if(req.body.userType === 'employee') {
+            user = await EmployeeModel.findOneAndUpdate({_id: userId}, {$set:{haveAvatar: true}}).exec();
+        }
+        
         res.status(200).json({
             success: true, 
             message: "image uploadée avec succés", 
