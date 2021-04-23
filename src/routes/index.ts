@@ -8,11 +8,12 @@ import { CommonRoutesConfig } from './CommonRoutes';
 import { CoursesRoutes } from './CoursesRoutes';
 import { DelaysRoutes } from './DelaysRoutes';
 import { EmployeesRoutes } from './EmployeesRoutes';
+import { MessagesRoutes } from './MessagesRoutes';
+import { NotesRoutes } from './NotesRoutes';
 import { ResultsRoutes } from './ResultsRoutes';
 import { SanctionsRoutes } from './SanctionsRoutes';
 import { SpeakersRoutes } from './SpeakersRoutes';
 import { StudentsRoutes } from './StudentsRoutes';
-import { MessagesRoutes } from './MessagesRoutes';
 import { UploadsRoutes } from './UploadsRoutes';
 import { SubjectsRoutes } from './SubjectsRoutes';
 
@@ -37,12 +38,13 @@ routes.push(new AbsencesRoutes(app));
 routes.push(new CoursesRoutes(app));
 routes.push(new DelaysRoutes(app));
 routes.push(new EmployeesRoutes(app));
+routes.push(new MessagesRoutes(app));
+routes.push(new NotesRoutes(app));
 routes.push(new ResultsRoutes(app));
 routes.push(new SanctionsRoutes(app));
 routes.push(new SpeakersRoutes(app));
 routes.push(new StudentsRoutes(app));
 routes.push(new SubjectsRoutes(app));
-routes.push(new MessagesRoutes(app));
 routes.push(new UploadsRoutes(app));
 
 export {routes, app};

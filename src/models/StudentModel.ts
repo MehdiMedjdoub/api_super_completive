@@ -32,9 +32,9 @@ const StudentSchema: Schema = new Schema({
     adress: { type: String, required: true },
     cp: { type: String, required: true },
     city: { type: String, required: true },
-    faculty: { type: String, required: true },
-    class: { type: String, required: true },
-    promo: { type: String, required: true },
+    faculty: { type: String, required: false },
+    class: { type: String, required: false },
+    promo: { type: String, required: false },
     absences: [
         {
         type: Schema.Types.ObjectId,

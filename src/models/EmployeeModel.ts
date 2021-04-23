@@ -15,6 +15,7 @@ interface IEmployee extends Document {
     city: string;
     function: string;
     roles: [];
+    notes:[];
     identifiant: string;
     poste: string;
     firstLogin: Boolean;
@@ -45,7 +46,12 @@ const EmployeeSchema: Schema = new Schema({
     poste: { type: String, required: false },
     firstLogin: { type: Boolean, required: false },
     avatar: { type: String, required: false },
-
+    notes: [
+        {
+        type: Schema.Types.ObjectId,
+        ref: "note"
+        }
+    ],
     
     
 });
