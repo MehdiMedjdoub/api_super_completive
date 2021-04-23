@@ -22,7 +22,14 @@ export class AuthRoutes extends CommonRoutesConfig {
         .post(AuthController.forgotPassword)
         ;
 
-        this.app.route(`/reset-password/:token`)
+        this.app.route(`/employees/password-token`)
+        .all((req: express.Request, res: express.Response, next: express.NextFunction) => {
+            next();
+        })
+        .post(AuthController.passwordToken)
+        ;
+
+        this.app.route(`/reset-password`)
         .all((req: express.Request, res: express.Response, next: express.NextFunction) => {
             next();
         })

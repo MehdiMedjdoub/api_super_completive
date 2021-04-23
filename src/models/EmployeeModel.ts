@@ -7,6 +7,7 @@ interface IEmployee extends Document {
     lastName: string;
     userName: string;
     password: string;
+    passwordToken: string;
     phone: string;
     adress: string;
     complAdress: string;
@@ -27,6 +28,7 @@ const EmployeeSchema: Schema = new Schema({
     lastName: { type: String, required: true },
     userName: { type: String, required: false },
     password: { type: String, required: false },
+    passwordToken: { type: String, required: false },
     phone: { type: String, required: true },
     adress: { type: String, required: true },
     complAdress: { type: String, required: false },

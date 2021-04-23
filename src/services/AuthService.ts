@@ -141,14 +141,14 @@ class AuthService {
     forgotPassword = (req: express.Request, res: express.Response) => {
         const email = req.body.email
       
-        StudentModel.findOne({email: email}).then(employee => {
+        EmployeeModel.findOne({email: email}).then(employee => {
             if (!employee){
                 res.status(404).send({success:false, message:'Aucun utilisateur trouvé avec cette adresse'})
             }
             
             const passwordToken = crypto.randomBytes(32).toString('hex')
         
-            StudentModel.findOneAndUpdate({_id: employee._id}, {$set:{passwordToken: passwordToken}}).exec();
+            EmployeeModel.findOneAndUpdate({_id: employee._id}, {$set:{passwordToken: passwordToken}}).exec();
         
             const tokenLink = `${process.env.FRONT_HOST}reset-password/${passwordToken}`
             mailerService.sendForgotPassword(tokenLink, employee.email)
@@ -157,9 +157,29 @@ class AuthService {
         })
     };
 
+    passwordToken = (req: express.Request, res: express.Response) => {
+        console.log(req.body)
+        EmployeeModel.findOne({passwordToken: req.body.token}).then(user => {
+            if (!user){
+              res.send({error:'Invalid token',message: 'le token est invalid'})
+            }
+            res.status(200).json({
+                success: true,
+                message: 'passwordToken valid',
+                data: user
+            })
+          })
+    };
+
     resetPassword = (req: express.Request, res: express.Response) => {
-        const password = bcrypt.hashSync(req.body.password, 8)
-        StudentModel.findByIdAndUpdate({_id:req.body.id}, {$set:{password: password}}).exec();
+        console.log(req.body)
+        const password = bcrypt.hashSync(req.body.password.password, 8)
+        console.log(password)
+        EmployeeModel.findByIdAndUpdate({_id:req.body.userId.id}, {$set:{password: password}}).exec();
+        res.status(200).json({
+            success: true,
+            message: 'Le mot de passe a été modifié',
+        })
     };
 
     getModelByUserType = (userType: any) => {

@@ -19,6 +19,10 @@ class AuthController {
         return await AuthService.forgotPassword(req, res);
     }
 
+    async passwordToken(req: express.Request, res: express.Response) {
+        return await AuthService.passwordToken(req, res);
+    }
+
     async resetPassword(req: express.Request, res: express.Response) {
         return await AuthService.resetPassword(req, res);
     }
