@@ -3,7 +3,6 @@ import AbsenceService from '../services/AbsenceService';
 
 class AbsenceController {
     async createAbsence(req: express.Request, res: express.Response) {
-
         if(!req.body.date) {
             res.status(400).send({
                 success: false,
@@ -21,11 +20,20 @@ class AbsenceController {
             }
         }
 
-        const absence = await AbsenceService.create(req.body);
+        const absence = await AbsenceService.create(req);
         res.status(201).json({
             success: true,
             message: "Nouvelle absence ajoutée",
             data: absence
+        });
+    }
+
+    async getAllAbsencesByWeek(req: express.Request, res: express.Response) {
+        const absences = await AbsenceService.getAllByDayForWeek();
+        res.status(200).json({
+            success: true, 
+            message: "Liste des absences de cette semaine", 
+            data: absences
         });
     }
 

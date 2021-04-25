@@ -12,7 +12,7 @@ export class AbsencesRoutes extends CommonRoutesConfig {
         this.app
             .route(`/students/:studentId/absences`)
             .post(AuthJwt.verifyToken, AbsenceController.createAbsence)
-            .get(AuthJwt.verifyToken, AbsenceController.getAllAbsences);
+            .get(AuthJwt.verifyToken, AbsenceController.getAllAbsences)
         
         this.app
             .route(`/students/:studentId/absences/:absenceId`)
@@ -20,6 +20,9 @@ export class AbsencesRoutes extends CommonRoutesConfig {
             .get(AuthJwt.verifyToken, AbsenceController.getAbsenceById)
             .put(AuthJwt.verifyToken, AbsenceController.updateDelayById);
         
+        this.app
+        .route(`/absences/weekly`)
+        .get(AuthJwt.verifyToken, AbsenceController.getAllAbsencesByWeek);
         return this.app;
     }
 }

@@ -2,6 +2,7 @@ import { StudentModel } from '../models/StudentModel'
 import { AbsenceModel } from '../models/AbsenceModel'
 import { CRUD } from '../interfaces/CrudInterface';
 import mongoose from "mongoose";
+import { ModuleResolutionKind } from 'typescript';
 
 class AbsenceService implements CRUD {
 
@@ -15,6 +16,29 @@ class AbsenceService implements CRUD {
         result.push(studentId);
         result.push(absences)
         return result;
+    }
+
+    async getAllByweek() {
+
+        let week: any = this.getDaysOfCurrentWeek()
+
+        let firstDay = week[0]
+        let lastDay = week[week.length -1]
+
+        return AbsenceModel.find({date: { $gte: firstDay, $lte: lastDay }});
+    }
+
+    async getAllByDayForWeek() {
+        let week: any = this.getDaysOfCurrentWeek()
+        let results:any = {}
+
+        for(let i=1; i< week.length; i++) {
+            let absence = await AbsenceModel.find({date: week[i]}).exec()
+
+            results[week[i]] = absence 
+        }
+
+        return results
     }
 
     async getOneById(id: string) {
@@ -40,6 +64,18 @@ class AbsenceService implements CRUD {
 
     async updateById(req: any) {
         return await AbsenceModel.findOneAndUpdate({_id: req.params.delayId}, req.body).exec();
+    }
+
+    getDaysOfCurrentWeek() {
+        let curr = new Date 
+        let week = []
+
+        for (let i = 0; i <= 5; i++) {
+        let first = curr.getDate() - curr.getDay() + i
+        let day = new Date(curr.setDate(first)).toISOString().slice(0, 10)
+        week.push(day)
+        }
+        return week
     }
 }
 
