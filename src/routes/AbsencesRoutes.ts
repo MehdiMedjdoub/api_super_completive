@@ -2,7 +2,8 @@ import { CommonRoutesConfig } from './CommonRoutes';
 import AbsenceController from '../controllers/AbsenceController';
 import express from 'express';
 import AuthJwt from '../middlewares/authJwt'
-
+import Pagination from '../middlewares/Pagination'
+import { AbsenceModel } from '../models/AbsenceModel'
 export class AbsencesRoutes extends CommonRoutesConfig {
     constructor(app: express.Application) {
         super(app, 'AbsencesRoutes');

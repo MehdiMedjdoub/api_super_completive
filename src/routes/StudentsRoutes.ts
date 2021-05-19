@@ -12,8 +12,16 @@ export class StudentsRoutes extends CommonRoutesConfig {
         this.app
             .route(`/students`)
             .post(AuthJwt.verifyToken, StudentController.createStudent)
-            .get(AuthJwt.verifyToken, StudentController.getAllStudent);
-    
+            .get(
+                // AuthJwt.verifyToken, 
+                StudentController.getAllStudent);
+        
+        this.app
+            .route(`/students/paginate`)
+            .get(
+                // AuthJwt.verifyToken, 
+                StudentController.getAllPaginatedStudent);
+                
         this.app
             .route(`/students/:id`)
             .get(AuthJwt.verifyToken, StudentController.getStudentById)

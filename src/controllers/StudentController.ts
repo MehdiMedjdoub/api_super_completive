@@ -13,10 +13,19 @@ class StudentController {
     }
 
     async getAllStudent(req: express.Request, res: express.Response) {
-        const students = await StudentService.getAll();
+        const students = await StudentService.getAll(req, res);
         res.status(200).json({
             success: true, 
             message: "Liste des étudiants", 
+            data: students
+        });
+    }
+
+    async getAllPaginatedStudent(req: express.Request, res: express.Response) {
+        const students = await StudentService.getAllPaginated(req, res);
+        res.status(200).json({
+            success: true, 
+            message: "Pagination des étudiants", 
             data: students
         });
     }

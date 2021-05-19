@@ -2,7 +2,6 @@ import { StudentModel } from '../models/StudentModel'
 import { AbsenceModel } from '../models/AbsenceModel'
 import { CRUD } from '../interfaces/CrudInterface';
 import mongoose from "mongoose";
-import { ModuleResolutionKind } from 'typescript';
 
 class AbsenceService implements CRUD {
 
@@ -21,7 +20,6 @@ class AbsenceService implements CRUD {
     async getAllByweek() {
 
         let week: any = this.getDaysOfCurrentWeek()
-
         let firstDay = week[0]
         let lastDay = week[week.length -1]
 
