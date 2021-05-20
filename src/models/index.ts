@@ -8,6 +8,7 @@ export default () => {
     const connect = () => {
         mongoose
         .connect(dbUrl, { useNewUrlParser: true })
+        // .connect('mongodb+srv://MehdiMedj:casquettegrise@cluster0.y60c6.mongodb.net/completive_api?retryWrites=true&w=majority', { useNewUrlParser: true })
         .then(() => {
             return console.log(`Successfully connected to database`);
         })

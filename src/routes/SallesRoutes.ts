@@ -11,8 +11,12 @@ export class SallesRoutes extends CommonRoutesConfig {
     configureRoutes(): express.Application {
         this.app
             .route(`/salles`)
-            .post(AuthJwt.verifyToken, SalleController.createSalle)
-            .get(AuthJwt.verifyToken, SalleController.getAllSalles);
+            .post(
+                // AuthJwt.verifyToken, 
+                SalleController.createSalle)
+            .get(
+                // AuthJwt.verifyToken, 
+                SalleController.getAllSalles);
         
         this.app
             .route(`/salles/:id`)

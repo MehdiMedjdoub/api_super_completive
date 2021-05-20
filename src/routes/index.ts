@@ -17,6 +17,7 @@ import { StudentsRoutes } from './StudentsRoutes';
 import { UploadsRoutes } from './UploadsRoutes';
 import { SubjectsRoutes } from './SubjectsRoutes';
 import { SallesRoutes } from './SallesRoutes';
+import { PromosRoutes } from './PromosRoutes';
 
 const app: express.Application = express();
 const routes: Array<CommonRoutesConfig> = [];
@@ -48,5 +49,6 @@ routes.push(new StudentsRoutes(app));
 routes.push(new SubjectsRoutes(app));
 routes.push(new UploadsRoutes(app));
 routes.push(new SallesRoutes(app));
+routes.push(new PromosRoutes(app));
 
 export {routes, app};
