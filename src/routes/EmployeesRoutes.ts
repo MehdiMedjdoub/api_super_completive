@@ -11,7 +11,9 @@ export class EmployeesRoutes extends CommonRoutesConfig {
     configureRoutes(): express.Application {
         this.app
             .route(`/employees`)
-            .post(AuthJwt.verifyToken, EmployeeController.createEmployee)
+            .post(
+                //AuthJwt.verifyToken, 
+                EmployeeController.createEmployee)
             .get(AuthJwt.verifyToken, EmployeeController.getAllEmployee);
     
         this.app

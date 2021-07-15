@@ -12,7 +12,7 @@ interface IStudent extends Document {
     city: string;
     faculty: string;
     class: string;
-    promo: string;
+    promo: [];
     absences:[];
     delays:[];
     sanctions:[];
@@ -34,7 +34,10 @@ const StudentSchema: Schema = new Schema({
     city: { type: String, required: true },
     faculty: { type: String, required: false },
     class: { type: String, required: false },
-    promo: { type: String, required: false },
+    promo: { 
+        type: Schema.Types.ObjectId,
+        ref: "promo" 
+    },
     absences: [
         {
         type: Schema.Types.ObjectId,
