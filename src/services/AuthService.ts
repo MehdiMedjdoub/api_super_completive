@@ -135,7 +135,7 @@ class AuthService {
 
         user.save();
         mailerService.sendConnectionInformations(user.userName, randomPassword, user.email)
-        return user
+        return {user:user,password:randomPassword}
     }
 
     forgotPassword = (req: express.Request, res: express.Response) => {
