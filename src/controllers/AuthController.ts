@@ -15,6 +15,10 @@ class AuthController {
         return await AuthService.singIn(req, res);
     }
 
+    async singInWithGoogle(req: express.Request, res: express.Response) {
+        return await AuthService.singInWithGoogle(req, res);
+    }
+
     async forgotPassword(req: express.Request, res: express.Response) {
         return await AuthService.forgotPassword(req, res);
     }

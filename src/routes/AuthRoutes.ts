@@ -15,6 +15,13 @@ export class AuthRoutes extends CommonRoutesConfig {
         .post(AuthController.singIn)
         ;
 
+        this.app.route(`/google-login`)
+        .all((req: express.Request, res: express.Response, next: express.NextFunction) => {
+            next();
+        })
+        .post(AuthController.singInWithGoogle)
+        ;
+
         this.app.route(`/forgot-password`)
         .all((req: express.Request, res: express.Response, next: express.NextFunction) => {
             next();

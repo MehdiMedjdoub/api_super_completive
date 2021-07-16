@@ -85,6 +85,47 @@ class AuthService {
         });
     }
 
+    singInWithGoogle = async (req: express.Request, res: express.Response) => {
+        console.log(req)
+        const userModel = this.getModelByUserType(req.body.userType)
+        const user = await userModel.findOne({email: req.body.email}).exec((err, user) => {
+            
+            if (err) {
+                return;
+            }
+      
+            if (!user) {
+                res.status(404).send({
+                    success: false,
+                    message: "User not found !",
+                });
+                return;
+            }
+            
+            //check if googleID
+        
+            const token = jwt.sign({ id: user.id }, `${process.env.ACCESS_TOKEN_SECRET}`, {
+                expiresIn: '24h'
+            });
+
+            res.status(200).send({
+                success: true,
+                message: "Utilisateur connecté",
+                data:{
+                    id: user._id,
+                    userName: user.userName,
+                    email: user.email,
+                    isFirstLogin: user.firstLogin,
+                    accessToken: token
+                }
+            });
+
+            if (user.firstLogin) {
+                this.updateFirstLoginStatus(user, userModel);
+            }
+        });
+    }
+
     singUp = async (req: express.Request, res: express.Response) => {
         const newUser = req.body
 

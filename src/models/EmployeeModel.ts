@@ -2,6 +2,7 @@ import { PaginateModel, model, Schema, Model, Document } from 'mongoose';
 //import mongoosePaginate from 'mongoose-paginate-v2';
 
 interface IEmployee extends Document {
+    googleId: string;
     email: string;
     firstName: string;
     lastName: string;
@@ -24,6 +25,7 @@ interface IEmployee extends Document {
 }
 
 const EmployeeSchema: Schema = new Schema({
+    googleId: { type: String, required: false },
     email: { type: String, required: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
