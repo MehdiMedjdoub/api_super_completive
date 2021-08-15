@@ -22,6 +22,7 @@ interface IEmployee extends Document {
     firstLogin: Boolean;
     haveAvatar: Boolean;
     avatar: string;
+    sex?: string;
 }
 
 const EmployeeSchema: Schema = new Schema({
@@ -48,6 +49,7 @@ const EmployeeSchema: Schema = new Schema({
     poste: { type: String, required: false },
     firstLogin: { type: Boolean, required: false },
     avatar: { type: String, required: false },
+    sex: { type: String, required: false },
     notes: [
         {
         type: Schema.Types.ObjectId,

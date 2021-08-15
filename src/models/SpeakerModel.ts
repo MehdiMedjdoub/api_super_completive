@@ -16,6 +16,7 @@ interface ISpeaker extends Document {
     firstLogin: Boolean;
     haveAvatar: Boolean;
     avatar: string;
+    sex?: string;
 }
 
 const SpeakerSchema: Schema = new Schema({
@@ -39,6 +40,7 @@ const SpeakerSchema: Schema = new Schema({
     firstLogin: { type: Boolean, required: false },
     haveAvatar: { type: Boolean, required: false },
     avatar: { type: String, required: false },
+    sex: { type: String, required: false },
 });
 
 export const SpeakerModel: Model<ISpeaker> = model('speaker', SpeakerSchema);
