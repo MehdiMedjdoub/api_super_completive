@@ -25,6 +25,7 @@ const routes: Array<CommonRoutesConfig> = [];
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(express.static('public'))
 
 app.get('/', (req: express.Request, res: express.Response) => {
     res.status(200).send(`Server up and running!`)
