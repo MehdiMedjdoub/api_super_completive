@@ -11,7 +11,9 @@ export class InstitutionsRoutes extends CommonRoutesConfig {
     configureRoutes(): express.Application {
         this.app
             .route(`/institutions`)
-            .post(AuthJwt.verifyToken, InstitutionController.createInstitution)
+            .post(
+                // AuthJwt.verifyToken, 
+                InstitutionController.createInstitution)
             .get(
                 AuthJwt.verifyToken, 
                 InstitutionController.getAllInstitution);
