@@ -15,6 +15,7 @@ class InstitutionService implements CRUD {
     async create(newInstitution: any) {
         const institution = new InstitutionModel(newInstitution);
         institution.save();
+        return institution
     }
 
     async deleteById(id: string) {
