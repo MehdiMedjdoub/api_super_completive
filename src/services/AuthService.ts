@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt'
 import crypto from 'crypto'
 import express from 'express'
 import jwt from 'jsonwebtoken'
+import axios from 'axios'
 import mailerService from './nodemailer/MailerService'
 import { EmployeeModel } from '../models/EmployeeModel'
 import { StudentModel } from '../models/StudentModel'
@@ -103,7 +104,8 @@ class AuthService {
             }
             
             //check if googleID
-        
+            
+            
             const token = jwt.sign({ id: user.id }, `${process.env.ACCESS_TOKEN_SECRET}`, {
                 expiresIn: '24h'
             });
@@ -124,6 +126,35 @@ class AuthService {
                 this.updateFirstLoginStatus(user, userModel);
             }
         });
+    }
+
+    singInWithLinkedin = async (req: express.Request, res: express.Response) => {
+        const accessToken = await this.getLinkedinAccessToken(req, res)
+        console.log("accessToken : ", accessToken)
+        const data = await this.getLinkedinData(accessToken)
+        console.log(data)
+
+    }
+
+    getLinkedinAccessToken = async (req: express.Request, res: express.Response) => {
+        let response = await axios
+            .post(`https://www.linkedin.com/oauth/v2/accessToken?client_id=${req.body.clientId}&client_secret=${req.body.clientSecret}&redirect_uri=${encodeURIComponent(req.body.redirectUri)}&code=${req.body.code}&grant_type=authorization_code`, {
+            })
+
+        return response.data.access_token
+    }
+
+    getLinkedinData = async (accessToken: any) => {
+        let response = await axios
+            .get(`https://api.linkedin.com/v2/me`,
+            {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'cache-control': 'no-cache',
+                    'X-Restli-Protocol-Version': '2.0.0'
+                  }
+            })
+        return response.data
     }
 
     singUp = async (req: express.Request, res: express.Response) => {

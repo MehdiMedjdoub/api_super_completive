@@ -15,12 +15,14 @@ export class InstitutionsRoutes extends CommonRoutesConfig {
                 // AuthJwt.verifyToken, 
                 InstitutionController.createInstitution)
             .get(
-                AuthJwt.verifyToken, 
+                // AuthJwt.verifyToken, 
                 InstitutionController.getAllInstitution);
         
         this.app
             .route(`/institutions/:id`)
-            .delete(AuthJwt.verifyToken, InstitutionController.deleteInstitutionById);
+            .delete(
+                // AuthJwt.verifyToken, 
+                InstitutionController.deleteInstitutionById);
     
         return this.app;
     }

@@ -22,6 +22,13 @@ export class AuthRoutes extends CommonRoutesConfig {
         .post(AuthController.singInWithGoogle)
         ;
 
+        this.app.route(`/linkedin-access-token`)
+        .all((req: express.Request, res: express.Response, next: express.NextFunction) => {
+            next();
+        })
+        .post(AuthController.singInWithLinkedin)
+        ;
+
         this.app.route(`/forgot-password`)
         .all((req: express.Request, res: express.Response, next: express.NextFunction) => {
             next();
