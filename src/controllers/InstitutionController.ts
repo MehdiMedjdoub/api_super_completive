@@ -1,7 +1,5 @@
 import express from 'express';
 import InstitutionService from '../services/InstitutionService';
-import AuthService from '../services/AuthService';
-
 
 class InstitutionController {
     async createInstitution(req: express.Request, res: express.Response) {

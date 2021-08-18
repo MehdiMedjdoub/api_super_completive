@@ -20,6 +20,7 @@ export class InstitutionsRoutes extends CommonRoutesConfig {
         
         this.app
             .route(`/institutions/:id`)
+            .get(InstitutionController.getInstitutionById)
             .delete(
                 // AuthJwt.verifyToken, 
                 InstitutionController.deleteInstitutionById);
