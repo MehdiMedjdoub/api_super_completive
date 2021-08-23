@@ -18,10 +18,9 @@ class AttendanceService implements CRUD {
         let attendances = AttendanceModel.find({
             isSend: false, 
             date: '2021-8-23'
-        }).exec().then(data => {
-            result =  data
-        });
-        return result
+        }).exec()
+
+        return attendances
     }
 
     async getOneById(id: string) {
