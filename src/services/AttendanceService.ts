@@ -15,11 +15,12 @@ class AttendanceService implements CRUD {
         let datetime = new Date();
         let date = datetime.getFullYear()+'-' + (datetime.getMonth()+1) + '-'+datetime.getDate()
 
-        let attendances = AttendanceModel.find({
+        let attendances = await AttendanceModel.find({
             isSend: false, 
             date: '2021-8-23'
         }).exec()
 
+        console.log(attendances)
         return attendances
     }
 
