@@ -1,4 +1,4 @@
-import { model, Schema, Model, Document } from 'mongoose';
+import { model, Schema, Model, Document, ObjectId } from 'mongoose';
 
 interface ICourse extends Document {
     name: string;
@@ -9,6 +9,7 @@ interface ICourse extends Document {
     type: string;
     salle: string;
     date: string;
+    attendance: ObjectId;
 }
 
 const CourseSchema: Schema = new Schema({
@@ -20,6 +21,10 @@ const CourseSchema: Schema = new Schema({
     type: { type: String, required: true },
     salle: { type: String, required: true },
     date: { type: String, required: true },
+    attendance: {
+        type: Schema.Types.ObjectId,
+        ref: 'attendance'
+    },
 });
 
 export const CourseModel: Model<ICourse> = model('course', CourseSchema);

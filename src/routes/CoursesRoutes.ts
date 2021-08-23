@@ -12,9 +12,7 @@ export class CoursesRoutes extends CommonRoutesConfig {
         this.app
             .route(`/courses`)
             .post(AuthJwt.verifyToken, CourseController.createCourse)
-            .get(
-                // AuthJwt.verifyToken, 
-                CourseController.getAllCourses);
+            .get(AuthJwt.verifyToken, CourseController.getAllCourses);
         
         this.app
             .route(`/courses/:id`)
