@@ -20,6 +20,10 @@ class CourseService implements CRUD {
         attendance.course = course._id
         attendance.isSend = false
 
+        let datetime = new Date(course.date);
+        let date = datetime.getFullYear()+'-' + (datetime.getMonth()+1) + '-'+datetime.getDate()
+        attendance.date = date
+
         attendance.save()
         course.save();
     }

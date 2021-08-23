@@ -2,6 +2,7 @@ import cors from 'cors';
 import express from 'express';
 
 import { ApiDocRoutes } from './ApiDocRoutes'
+import { AttendancesRoutes } from './AttendancesRoutes';
 import { AuthRoutes } from './AuthRoutes';
 import { AbsencesRoutes } from './AbsencesRoutes';
 import { CommonRoutesConfig } from './CommonRoutes';
@@ -37,6 +38,7 @@ app.get('/test', (req: express.Request, res: express.Response) => {
 });
 
 routes.push(new ApiDocRoutes(app));
+routes.push(new AttendancesRoutes(app));
 routes.push(new AuthRoutes(app));
 routes.push(new AbsencesRoutes(app));
 routes.push(new CoursesRoutes(app));

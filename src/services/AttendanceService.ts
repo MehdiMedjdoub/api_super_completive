@@ -9,36 +9,22 @@ class AttendanceService implements CRUD {
         return AttendanceModel.find();
     }
 
-    async getAllByCourse(courseId: any) {
-        const attendances = await AttendanceModel.find({course: courseId}).populate('course').exec(); 
-        const result = []
-        result.push(courseId);
-        result.push(attendances)
-        return result;
+    async getAllByDay() {
+
+        let datetime = new Date();
+
+        // let date = datetime.toString().split('T')
+
+        let date = datetime.getFullYear()+'-' + (datetime.getMonth()+1) + '-'+datetime.getDate()
+        console.log(date)
+        let attendances = AttendanceModel.find({
+            isSend: false, 
+            date: '2021-8-23'
+        }).exec().then(data => {
+            console.log(data)
+            return data
+        });
     }
-
-    async getAllByweek() {
-
-        let week: any = this.getDaysOfCurrentWeek()
-        let firstDay = week[0]
-        let lastDay = week[week.length -1]
-
-        return AttendanceModel.find({date: { $gte: firstDay, $lte: lastDay }});
-    }
-
-    async getAllByDayForWeek() {
-        let week: any = this.getDaysOfCurrentWeek()
-        let results:any = {}
-
-        for(let i=1; i< week.length; i++) {
-            let attendance = await AttendanceModel.find({date: week[i]}).exec()
-
-            results[week[i]] = attendance 
-        }
-
-        return results
-    }
-
 
     async getOneById(id: string) {
         return AttendanceModel.find({_id: id}).exec();
@@ -63,18 +49,6 @@ class AttendanceService implements CRUD {
 
     async updateById(req: any) {
         return await AttendanceModel.findOneAndUpdate({_id: req.params.attendanceId}, req.body).exec();
-    }
-
-    getDaysOfCurrentWeek() {
-        let curr = new Date 
-        let week = []
-
-        for (let i = 0; i <= 5; i++) {
-        let first = curr.getDate() - curr.getDay() + i
-        let day = new Date(curr.setDate(first)).toISOString().slice(0, 10)
-        week.push(day)
-        }
-        return week
     }
 }
 
