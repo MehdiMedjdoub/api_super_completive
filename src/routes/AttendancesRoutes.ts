@@ -12,7 +12,7 @@ export class AttendancesRoutes extends CommonRoutesConfig {
         this.app
             .route(`/attendances/day`)
             .get(
-                AuthJwt.verifyToken, 
+                // AuthJwt.verifyToken, 
                 AttendancesService.getAllByDay);
     
         return this.app;
