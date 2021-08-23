@@ -29,6 +29,15 @@ class DelayController {
         });
     }
 
+    async getAllDelaysByWeek(req: express.Request, res: express.Response) {
+        const delays = await DelayService.getAllByDayForWeek();
+        res.status(200).json({
+            success: true, 
+            message: "Liste des retards de cette semaine", 
+            data: delays
+        });
+    }
+
     async getAllDelays(req: express.Request, res: express.Response) {
         const delays = await DelayService.getAllByStudent(req.params.studentId);
         res.status(200).json({

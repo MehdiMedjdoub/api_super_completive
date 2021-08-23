@@ -17,6 +17,29 @@ class DelayService implements CRUD {
         return result;
     }
 
+    async getAllByweek() {
+
+        let week: any = this.getDaysOfCurrentWeek()
+        let firstDay = week[0]
+        let lastDay = week[week.length -1]
+
+        return DelayModel.find({date: { $gte: firstDay, $lte: lastDay }});
+    }
+
+    async getAllByDayForWeek() {
+        let week: any = this.getDaysOfCurrentWeek()
+        let results:any = {}
+
+        for(let i=1; i< week.length; i++) {
+            let absence = await DelayModel.find({date: week[i]}).exec()
+
+            results[week[i]] = absence 
+        }
+
+        return results
+    }
+
+
     async getOneById(id: string) {
         return DelayModel.find({_id: id}).exec();
     }
@@ -40,6 +63,18 @@ class DelayService implements CRUD {
 
     async updateById(req: any) {
         return await DelayModel.findOneAndUpdate({_id: req.params.delayId}, req.body).exec();
+    }
+
+    getDaysOfCurrentWeek() {
+        let curr = new Date 
+        let week = []
+
+        for (let i = 0; i <= 5; i++) {
+        let first = curr.getDate() - curr.getDay() + i
+        let day = new Date(curr.setDate(first)).toISOString().slice(0, 10)
+        week.push(day)
+        }
+        return week
     }
 }
 

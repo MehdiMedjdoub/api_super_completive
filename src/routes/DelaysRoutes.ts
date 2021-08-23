@@ -20,6 +20,9 @@ export class DelaysRoutes extends CommonRoutesConfig {
             .get(AuthJwt.verifyToken, DelayController.getDelayById)
             .put(AuthJwt.verifyToken, DelayController.updateDelayById);            
 
+            this.app
+            .route(`/delays/weekly`)
+            .get(AuthJwt.verifyToken, DelayController.getAllDelaysByWeek);
         return this.app;
     }
 }
