@@ -11,7 +11,9 @@ export class CoursesRoutes extends CommonRoutesConfig {
     configureRoutes(): express.Application {
         this.app
             .route(`/courses`)
-            .post(AuthJwt.verifyToken, CourseController.createCourse)
+            .post(
+                // AuthJwt.verifyToken, 
+                CourseController.createCourse)
             .get(AuthJwt.verifyToken, CourseController.getAllCourses);
         
         this.app
