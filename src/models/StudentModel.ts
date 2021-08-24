@@ -1,4 +1,4 @@
-import { model, Schema, Model, Document } from 'mongoose';
+import { model, Schema, Model, Document, ObjectId } from 'mongoose';
 
 interface IStudent extends Document {
     email: string;
@@ -12,7 +12,7 @@ interface IStudent extends Document {
     city: string;
     faculty: string;
     class: string;
-    promo: [];
+    promo: ObjectId;
     absences:[];
     delays:[];
     sanctions:[];

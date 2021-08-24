@@ -12,9 +12,14 @@ export class AttendancesRoutes extends CommonRoutesConfig {
         this.app
             .route(`/attendances/day`)
             .get(
-                AuthJwt.verifyToken, 
+                // AuthJwt.verifyToken, 
                 AttendanceController.getAllAttendancesByDay);
     
+                this.app
+            .route(`/attendances`)
+            .post(
+                // AuthJwt.verifyToken, 
+                AttendanceController.createAttendance);
         return this.app;
     }
 }

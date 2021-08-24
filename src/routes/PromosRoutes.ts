@@ -11,14 +11,18 @@ export class PromosRoutes extends CommonRoutesConfig {
     configureRoutes(): express.Application {
         this.app
             .route(`/promos`)
-            .post(AuthJwt.verifyToken, PromoController.createPromo)
+            .post(
+                // AuthJwt.verifyToken, 
+                PromoController.createPromo)
             .get(
                 // AuthJwt.verifyToken, 
                 PromoController.getAllPromo);
         
         this.app
             .route(`/promos/:id`)
-            .delete(AuthJwt.verifyToken, PromoController.deletePromoById);
+            .delete(
+                // AuthJwt.verifyToken, 
+                PromoController.deletePromoById);
     
         return this.app;
     }
