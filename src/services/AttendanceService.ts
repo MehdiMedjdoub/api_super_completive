@@ -15,7 +15,7 @@ class AttendanceService implements CRUD {
         let date = datetime.getFullYear()+'-' + (datetime.getMonth()+1) + '-'+datetime.getDate()
 
         return await AttendanceModel.find({
-            isSend: false, 
+            //isSend: false, 
             date: date
         }).exec()
     }
