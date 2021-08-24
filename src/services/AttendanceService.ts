@@ -11,17 +11,13 @@ class AttendanceService implements CRUD {
 
     async getAllByDay() {
 
-        let result
         let datetime = new Date();
         let date = datetime.getFullYear()+'-' + (datetime.getMonth()+1) + '-'+datetime.getDate()
 
-        let attendances = await AttendanceModel.find({
+        return await AttendanceModel.find({
             isSend: false, 
-            date: '2021-8-23'
+            date: date
         }).exec()
-
-        console.log(attendances)
-        return attendances
     }
 
     async getOneById(id: string) {
