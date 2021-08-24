@@ -1,5 +1,5 @@
 import { CommonRoutesConfig } from './CommonRoutes';
-import AttendancesService from '../services/AttendanceService';
+import AttendanceController from '../controllers/AttendanceController';
 import express from 'express';
 import AuthJwt from '../middlewares/authJwt'
 
@@ -12,8 +12,8 @@ export class AttendancesRoutes extends CommonRoutesConfig {
         this.app
             .route(`/attendances/day`)
             .get(
-                // AuthJwt.verifyToken, 
-                AttendancesService.getAllByDay);
+                AuthJwt.verifyToken, 
+                AttendanceController.getAllAttendancesByDay);
     
         return this.app;
     }
