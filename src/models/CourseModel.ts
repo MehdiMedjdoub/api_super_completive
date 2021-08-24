@@ -5,7 +5,7 @@ interface ICourse extends Document {
     speaker: string;
     faculty: string;
     class: string;
-    promo: string;
+    promo: ObjectId;
     type: string;
     salle: string;
     date: string;
@@ -17,7 +17,10 @@ const CourseSchema: Schema = new Schema({
     speaker: { type: String, required: true },
     faculty: { type: String, required: true },
     class: { type: String, required: true },
-    promo: { type: String, required: false },
+    promo: {
+            type: Schema.Types.ObjectId,
+            ref: 'promo'
+        },
     type: { type: String, required: true },
     salle: { type: String, required: true },
     date: { type: String, required: true },

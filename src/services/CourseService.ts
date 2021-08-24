@@ -1,7 +1,7 @@
 import {CourseModel} from '../models/CourseModel'
 import { AttendanceModel } from '../models/AttendanceModel';
+import { StudentModel } from '../models/StudentModel';
 import { CRUD } from '../interfaces/CrudInterface'
-import mongoose from 'mongoose'
 
 class CourseService implements CRUD {
 
@@ -24,7 +24,15 @@ class CourseService implements CRUD {
         let date = datetime.getFullYear()+'-' + (datetime.getMonth()+1) + '-'+datetime.getDate()
         attendance.date = date
 
-        attendance.save()
+        const students = await StudentModel.find({promo: course.promo}).exec()
+
+        attendance.save().then(
+            (data:any) => {
+                data.students = students
+                data.save()
+            }
+        )
+
         course.save();
     }
 

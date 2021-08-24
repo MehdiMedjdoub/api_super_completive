@@ -20,5 +20,7 @@ export default () => {
     };
     connect();
 
+    mongoose.set('useFindAndModify', false);
+    
     mongoose.connection.on("disconnected", connect);
 };

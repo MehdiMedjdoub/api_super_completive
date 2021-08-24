@@ -2,6 +2,7 @@ import { AttendanceModel } from '../models/AttendanceModel'
 import { CourseModel } from '../models/CourseModel'
 import { CRUD } from '../interfaces/CrudInterface';
 import mongoose from "mongoose";
+import { StudentModel } from '../models/StudentModel';
 
 class AttendanceService implements CRUD {
 
@@ -17,7 +18,7 @@ class AttendanceService implements CRUD {
         return await AttendanceModel.find({
             //isSend: false, 
             date: date
-        }).exec()
+        }).populate('course').populate('students').exec()
     }
 
     async getOneById(id: string) {

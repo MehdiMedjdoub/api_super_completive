@@ -5,6 +5,7 @@ interface IAttendance extends Document {
     isSend: boolean;
     course: ObjectId;
     date: string;
+    students:[];
 }
 
 const AttendanceSchema: Schema = new Schema({
@@ -14,6 +15,12 @@ const AttendanceSchema: Schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'course'
     },
+    students: [
+        {
+        type: Schema.Types.ObjectId,
+        ref: "student"
+        }
+    ],
 });
 
 export const AttendanceModel: Model<IAttendance> = model('attendance', AttendanceSchema);
