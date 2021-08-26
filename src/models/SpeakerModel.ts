@@ -33,7 +33,7 @@ const SpeakerSchema: Schema = new Schema({
     subjects: [
         {
         type: Schema.Types.ObjectId,
-        ref: "subjects"
+        ref: "subject"
         }
     ],
     siretNumber: { type: String, required: false },
