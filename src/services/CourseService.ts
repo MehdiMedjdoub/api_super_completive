@@ -2,6 +2,7 @@ import {CourseModel} from '../models/CourseModel'
 import { AttendanceModel } from '../models/AttendanceModel';
 import { StudentModel } from '../models/StudentModel';
 import { CRUD } from '../interfaces/CrudInterface'
+import { ObjectId } from 'bson';
 
 class CourseService implements CRUD {
 
@@ -10,11 +11,19 @@ class CourseService implements CRUD {
     }
 
     getOneById(firstName: string) {
-        return CourseModel.find({firstName: firstName}).exec();
+        return CourseModel
+        .find({firstName: firstName})
+        .populate('speakers')
+        .populate('speakers')
+        .populate('promos')
+        .populate('subjects')
+        .exec();
     }
 
     async create(newCourse: any) {
+        console.log(newCourse)
         const course = new CourseModel(newCourse);
+        console.log(course)
         const attendance = new AttendanceModel()
 
         attendance.course = course._id
@@ -33,7 +42,7 @@ class CourseService implements CRUD {
             }
         )
 
-        course.save();
+        course.save().then(data => {console.log(data)});
     }
 
     async deleteById(id: string) {

@@ -2,7 +2,6 @@ import { AttendanceModel } from '../models/AttendanceModel'
 import { CourseModel } from '../models/CourseModel'
 import { CRUD } from '../interfaces/CrudInterface';
 import mongoose from "mongoose";
-import { StudentModel } from '../models/StudentModel';
 
 class AttendanceService implements CRUD {
 
@@ -15,10 +14,23 @@ class AttendanceService implements CRUD {
         let datetime = new Date();
         let date = datetime.getFullYear()+'-' + (datetime.getMonth()+1) + '-'+datetime.getDate()
 
-        return await AttendanceModel.find({
-            //isSend: false, 
-            date: date
-        }).populate('course').populate('students').exec()
+        return await AttendanceModel
+        .find({date: date})
+        // .populate('course')
+        .populate({ 
+            path: 'course',
+            model: 'course',
+            populate: [{
+                path: 'speaker',
+                model: 'speaker'
+            },
+            {
+                path: 'name',
+                model: 'subject'
+            }], 
+         })
+        .populate('students')
+        .exec()
     }
 
     async getOneById(id: string) {
