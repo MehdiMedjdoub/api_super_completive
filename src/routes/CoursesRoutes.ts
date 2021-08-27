@@ -14,11 +14,15 @@ export class CoursesRoutes extends CommonRoutesConfig {
             .post(
                 // AuthJwt.verifyToken, 
                 CourseController.createCourse)
-            .get(AuthJwt.verifyToken, CourseController.getAllCourses);
+            .get(
+                // AuthJwt.verifyToken, 
+                CourseController.getAllCourses);
         
         this.app
             .route(`/courses/:id`)
-            .delete(AuthJwt.verifyToken, CourseController.deleteCourseById);
+            .delete(
+                // AuthJwt.verifyToken, 
+                CourseController.deleteCourseById);
     
         return this.app;
     }

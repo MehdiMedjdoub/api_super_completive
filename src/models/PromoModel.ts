@@ -8,10 +8,10 @@ interface IPromo extends Document {
 
 const PromoSchema: Schema = new Schema({
   name: { type: String, required: true },
-  student: {
+  student: [{
     type: Schema.Types.ObjectId,
     ref: 'student'
-}
+}]
 });
 
 export const PromoModel: Model<IPromo> = model('promo', PromoSchema);

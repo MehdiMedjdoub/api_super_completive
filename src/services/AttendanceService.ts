@@ -13,10 +13,9 @@ class AttendanceService implements CRUD {
 
         let datetime = new Date();
         let date = datetime.getFullYear()+'-' + (datetime.getMonth()+1) + '-'+datetime.getDate()
-
-        return await AttendanceModel
+        
+        const attendances = await AttendanceModel
         .find({date: date})
-        // .populate('course')
         .populate({ 
             path: 'course',
             model: 'course',
@@ -31,10 +30,32 @@ class AttendanceService implements CRUD {
          })
         .populate('students')
         .exec()
+
+        return attendances
     }
 
     async getOneById(id: string) {
-        return AttendanceModel.find({_id: id}).exec();
+        return AttendanceModel
+        .findOne({_id: id})
+        .populate({ 
+            path: 'course',
+            model: 'course',
+            populate: [{
+                path: 'promo',
+                model: 'promo',
+                populate: {
+                    path: 'student',
+                    model: 'student',
+                },
+            },{
+                path: 'speaker',
+                model: 'speaker',
+            },{
+                path: 'name',
+                model: 'subject',
+            }], 
+         })
+         .exec();
     }
 
     async create(req: any) {
