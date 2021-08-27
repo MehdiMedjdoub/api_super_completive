@@ -14,7 +14,6 @@ class CourseService implements CRUD {
         return CourseModel
         .find({firstName: firstName})
         .populate('speakers')
-        .populate('speakers')
         .populate('promos')
         .populate('subjects')
         .exec();

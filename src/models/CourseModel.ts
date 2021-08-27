@@ -3,11 +3,9 @@ import { model, Schema, Model, Document, ObjectId } from 'mongoose';
 interface ICourse extends Document {
     name: ObjectId;
     speaker: ObjectId;
-    faculty: string;
-    class: string;
     promo: ObjectId;
     type?: string;
-    salle: string;
+    room: ObjectId;
     date: string;
     attendance: ObjectId;
 }
@@ -21,14 +19,14 @@ const CourseSchema: Schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'speaker'
     },
-    faculty: { type: String, required: true },
-    class: { type: String, required: true },
     promo: {
-            type: Schema.Types.ObjectId,
-            ref: 'promo'
-        },
+        type: Schema.Types.ObjectId,
+        ref: 'promo'
+    },
     type: { type: String, required: false },
-    salle: { type: String, required: true },
+    room: { type: Schema.Types.ObjectId,
+        ref: 'room'
+    },
     date: { type: String, required: true },
     attendance: {
         type: Schema.Types.ObjectId,
